@@ -38,15 +38,15 @@ export default function BookCard({
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col justify-between rounded-[32px] bg-linen-100/75 hover:bg-linen-100 border border-espresso-900/10 p-6 sm:p-7 transition-colors duration-500"
+      className="group relative flex flex-col justify-between rounded-[32px] bg-[#FBF3E8]/85 hover:bg-[#FBF3E8] backdrop-blur-md border border-[#8C583A]/20 shadow-[0_20px_50px_-15px_rgba(92,50,22,0.12)] p-6 sm:p-7 transition-all duration-500"
     >
-      {/* Ambient Color Wash on Hover */}
+      {/* Ambient Warm Candlelight Wash on Hover */}
       <div
         aria-hidden="true"
         style={{
-          background: `radial-gradient(circle at 50% 28%, ${book.accentColor}22 0%, transparent 70%)`,
+          background: `radial-gradient(circle at 50% 28%, ${book.accentColor}2E 0%, transparent 72%)`,
         }}
-        className="pointer-events-none absolute inset-0 rounded-[32px] opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+        className="pointer-events-none absolute inset-0 rounded-[32px] opacity-75 group-hover:opacity-100 transition-opacity duration-500"
       />
 
       {/* Top Editorial Header Row */}

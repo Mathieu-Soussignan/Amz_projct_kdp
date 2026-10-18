@@ -5,7 +5,7 @@ export default function HomePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Collection Officielle de Livres de Coloriage — Anne-Caroline & Clémentine",
+    name: "Collection Officielle de Livres de Coloriage — CaroTine",
     itemListElement: BOOKS.map((book, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
@@ -13,10 +13,7 @@ export default function HomePage() {
         "@type": "Book",
         name: book.title,
         description: book.subtitle,
-        author: [
-          { "@type": "Person", name: "Anne-Caroline" },
-          { "@type": "Person", name: "Clémentine" },
-        ],
+        author: [{ "@type": "Organization", name: "CaroTine" }],
         offers: {
           "@type": "Offer",
           availability: "https://schema.org/InStock",

@@ -205,26 +205,22 @@ export default function HeroVisual({
             </h1>
 
             {/* Authentic Editorial Lead Paragraph */}
-            <p className="text-base sm:text-lg text-espresso-800/80 max-w-xl leading-relaxed font-normal">
-              Les livres de coloriage créés par{" "}
+            <p className="text-base sm:text-lg text-espresso-800/85 max-w-xl leading-relaxed font-normal">
+              Les livres de coloriage imaginés par{" "}
               <strong className="font-semibold text-espresso-900">
-                Anne-Caroline
+                CaroTine
               </strong>{" "}
-              (530K+ sur TikTok) et sa belle-sœur{" "}
-              <strong className="font-semibold text-espresso-900">
-                Clémentine
-              </strong>
-              . Des gros traits simples, 30 dessins originaux par livre et zéro
-              détail minuscule — juste le plaisir de colorier sans se prendre la
-              tête.
+              (suivie par +530 000 abonnés sur TikTok). Des gros traits simples,
+              30 dessins originaux par livre et zéro détail minuscule — juste le
+              plaisir de colorier sans se prendre la tête.
             </p>
 
             {/* Active Book Highlight Card */}
-            <div className="p-5 sm:p-6 rounded-3xl bg-linen-100/90 border border-espresso-900/10 max-w-xl">
+            <div className="p-5 sm:p-6 rounded-3xl bg-[#FBF3E8]/90 backdrop-blur-md border border-[#8C583A]/20 shadow-[0_20px_50px_-15px_rgba(92,50,22,0.12)] max-w-xl">
               <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-espresso-900/10">
                 <div>
-                  <span className="text-[11px] uppercase tracking-[0.18em] text-espresso-800/60 font-bold">
-                    Sélection du moment • Par CaroTine
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-espresso-800/65 font-bold">
+                    Sélection Cocooning • Par CaroTine
                   </span>
                   <h2 className="font-serif text-xl sm:text-2xl font-bold text-espresso-900">
                     {activeBook.title}

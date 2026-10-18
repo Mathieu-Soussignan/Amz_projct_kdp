@@ -347,7 +347,7 @@ export default function FlipbookModal({
               <div className="p-4 rounded-2xl bg-linen-100 border border-espresso-900/10 text-xs sm:text-sm text-espresso-800 leading-relaxed italic font-serif">
                 « {meta.creatorNote} »
                 <span className="block not-italic font-sans font-bold text-[11px] text-espresso-900 mt-1.5">
-                  — Anne-Caroline &amp; Clémentine
+                  — CaroTine
                 </span>
               </div>
             )}

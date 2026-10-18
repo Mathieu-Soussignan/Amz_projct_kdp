@@ -24,16 +24,16 @@ const syne = Syne({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#FDFBF7",
+  themeColor: "#F2DFC9",
 };
 
 export const metadata: Metadata = {
   title:
-    "Anne-Caroline & Clémentine — Collection Officielle de Livres de Coloriage (Amazon KDP)",
+    "CaroTine — Collection Officielle de Livres de Coloriage (Amazon KDP)",
   description:
-    "Découvrez les 7 livres de coloriage Bold & Easy créés par Anne-Caroline (530K+ sur TikTok) et Clémentine : Automne Cozy, Automne Gourmand, Petits Animaux, Noël des Capybaras, Axolotls, Dinosaures et Lolo & Lili.",
+    "Découvrez les 7 livres de coloriage Bold & Easy créés par CaroTine (530K+ sur TikTok) : Automne Cozy, Automne Gourmand, Petits Animaux, Noël des Capybaras, Axolotls, Dinosaures et Lolo & Lili.",
   openGraph: {
-    title: "Anne-Caroline & Clémentine — Livres de Coloriage Officiels",
+    title: "CaroTine — Livres de Coloriage Officiels",
     description:
       "Feuilletez nos 7 carnets de coloriage en 3D et commandez directement sur Amazon (Disponible en Prime).",
     type: "website",

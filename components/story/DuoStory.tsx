@@ -20,38 +20,38 @@ const TIKTOK_CLIPS = [
   {
     id: "clip-automne",
     book: BOOKS[0], // Coloriages d'Automne Cozy
-    handle: "@AnneCaroline",
+    handle: "@CaroTine",
     followers: "530K+ abonnés",
     views: "1,9M vues",
     likes: "184K",
     comments: "2 940",
     caption:
-      "Soirée pluvieuse + mes feutres à alcool sur notre tome Automne Cozy 🍂☕ Le stylo gel blanc sur la tasse change tout !",
+      "Soirée pluvieuse + nos feutres à alcool sur le tome Automne Cozy 🍂☕ Le stylo gel blanc sur la tasse change tout !",
     sound: "Son original • ASMR Feutres Alcool & Pluie d'Automne",
   },
   {
     id: "clip-capybara",
     book: BOOKS[3], // Noël Magique des Capybaras
-    handle: "@AnneCaroline",
+    handle: "@CaroTine",
     followers: "530K+ abonnés",
     views: "2,4M vues",
     likes: "265K",
     comments: "4 120",
     caption:
       "Vous nous l'avez réclamé par milliers : le Noël Magique des Capybaras est enfin dispo sur Amazon 🎄🎅",
-    sound: "Cosy Christmas Lo-Fi • Timelapse x4",
+    sound: "Cosy Christmas Lo-Fi • CaroTine",
   },
   {
     id: "clip-axolotl",
     book: BOOKS[4], // Le Noël Magique des Axolotls
-    handle: "@AnneCaroline",
+    handle: "@CaroTine",
     followers: "530K+ abonnés",
     views: "1,3M vues",
     likes: "142K",
     comments: "1 880",
     caption:
       "Coloriage sans bavure sur le format carré 8,5x8,5 du Noël des Axolotls 💕 Regardez l'épaisseur des traits !",
-    sound: "ASMR Marker Brush • Anne-Caroline & Clémentine",
+    sound: "ASMR Marker Brush • CaroTine",
   },
 ];
 
@@ -66,89 +66,82 @@ export default function DuoStory() {
       id="duo-story"
       className="py-24 md:py-32 relative border-t border-espresso-900/10 overflow-hidden"
     >
-      {/* Subtle Ambient Warmth */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full bg-autumn-saffron/10 blur-3xl -z-10"
-      />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 items-center">
-          {/* Left Column (7 cols): Editorial Story of Anne-Caroline & Clémentine */}
+          {/* Left Column (7 cols): Editorial Story of CaroTine */}
           <div className="lg:col-span-7 space-y-7">
-            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.22em] text-espresso-800/60">
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.22em] text-espresso-800/70">
               <Heart className="w-3.5 h-3.5 text-autumn-saffron fill-autumn-saffron" />
-              <span>03 / La Genèse de l&apos;Atelier</span>
+              <span>03 / L&apos;Esprit Cocooning CaroTine</span>
             </div>
 
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-[54px] font-normal text-espresso-900 tracking-tight leading-[1.06]">
-              Anne-Caroline &amp; Clémentine :{" "}
+              CaroTine :{" "}
               <span className="italic font-light text-autumn-saffron">
                 deux belles-sœurs,
               </span>{" "}
-              un même univers créatif.
+              une même passion du coloriage cosy.
             </h2>
 
-            <div className="space-y-4 text-sm sm:text-base text-espresso-800/80 leading-relaxed max-w-2xl">
+            <div className="space-y-4 text-sm sm:text-base text-espresso-800/85 leading-relaxed max-w-2xl">
               <p>
-                Tout est né d&apos;une évidence partagée autour d&apos;une table
-                couverte de feutres à alcool : nous rêvions de carnets de
-                coloriage qui allient{" "}
+                Tout est né autour d&apos;une table couverte de feutres à alcool
+                et d&apos;une tasse de thé bien chaud : avec{" "}
                 <strong className="font-semibold text-espresso-900">
-                  la générosité du style Bold &amp; Easy
-                </strong>{" "}
-                à une vraie direction artistique chaleureuse, loin des recueils
-                impersonnels.
+                  CaroTine
+                </strong>
+                , nous avions envie de créer des livres de coloriage{" "}
+                <strong className="font-semibold text-espresso-900">
+                  vraiment relaxants (Bold &amp; Easy)
+                </strong>
+                , loin des albums compliqués où l&apos;on passe trois heures sur
+                un détail minuscule.
               </p>
               <p>
-                D&apos;un côté,{" "}
-                <strong className="font-semibold text-espresso-900">
-                  Anne-Caroline
-                </strong>
-                , créatrice passionnée suivie par plus de{" "}
+                Suivie par une communauté de plus de{" "}
                 <strong className="font-semibold text-espresso-900">
                   530 000 abonnés sur TikTok
                 </strong>
-                , qui teste chaque palette et partage ses astuces de dégradés en
-                direct. De l&apos;autre,{" "}
+                , l&apos;aventure{" "}
                 <strong className="font-semibold text-espresso-900">
-                  Clémentine
-                </strong>
-                , sa belle-sœur, qui façonne chaque scène avec des contours
-                francs, ronds et ultra-apaisants.
+                  CaroTine
+                </strong>{" "}
+                réunit des dessins aux contours épais, ronds et ultra-mignons —
+                testés au feutre à alcool et pensés pour s&apos;offrir une vraie
+                parenthèse cocooning le soir.
               </p>
             </div>
 
             {/* 3 Editorial Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="p-5 rounded-3xl bg-linen-100 border border-espresso-900/10">
+              <div className="p-5 rounded-3xl bg-[#FBF3E8]/85 backdrop-blur-md border border-[#8C583A]/20 shadow-sm">
                 <PenTool className="w-5 h-5 text-autumn-saffron mb-3" />
                 <h3 className="font-serif font-bold text-base text-espresso-900">
                   Traits Nets &amp; Épais
                 </h3>
-                <p className="text-xs text-espresso-800/75 mt-1 leading-relaxed">
+                <p className="text-xs text-espresso-800/80 mt-1 leading-relaxed">
                   Zéro prise de tête ni détail microscopique : chaque forme est
                   pensée pour le plaisir immédiat du feutre.
                 </p>
               </div>
 
-              <div className="p-5 rounded-3xl bg-linen-100 border border-espresso-900/10">
+              <div className="p-5 rounded-3xl bg-[#FBF3E8]/85 backdrop-blur-md border border-[#8C583A]/20 shadow-sm">
                 <Layers className="w-5 h-5 text-noel-velvet mb-3" />
                 <h3 className="font-serif font-bold text-base text-espresso-900">
                   Pensé pour les Feutres
                 </h3>
-                <p className="text-xs text-espresso-800/75 mt-1 leading-relaxed">
+                <p className="text-xs text-espresso-800/80 mt-1 leading-relaxed">
                   Impression recto seul sur papier KDP sélectionné pour sublimer
                   vos aplats aux feutres à alcool.
                 </p>
               </div>
 
-              <div className="p-5 rounded-3xl bg-linen-100 border border-espresso-900/10">
+              <div className="p-5 rounded-3xl bg-[#FBF3E8]/85 backdrop-blur-md border border-[#8C583A]/20 shadow-sm">
                 <Sparkles className="w-5 h-5 text-autumn-rust mb-3" />
                 <h3 className="font-serif font-bold text-base text-espresso-900">
                   Co-Créé avec TikTok
                 </h3>
-                <p className="text-xs text-espresso-800/75 mt-1 leading-relaxed">
+                <p className="text-xs text-espresso-800/80 mt-1 leading-relaxed">
                   Des capybaras de Noël aux pâtisseries d&apos;automne, nos
                   thèmes naissent des envies de nos 530K abonnés.
                 </p>
@@ -156,23 +149,18 @@ export default function DuoStory() {
             </div>
 
             {/* Duo Signature Card */}
-            <div className="p-5 sm:p-6 rounded-3xl bg-espresso-900 text-linen-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="p-5 sm:p-6 rounded-3xl bg-espresso-900 text-linen-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
               <div className="flex items-center gap-3.5">
-                <div className="flex -space-x-2">
-                  <span className="w-11 h-11 rounded-full bg-autumn-saffron text-white font-serif font-bold flex items-center justify-center border-2 border-espresso-900 text-sm">
-                    AC
-                  </span>
-                  <span className="w-11 h-11 rounded-full bg-noel-velvet text-white font-serif font-bold flex items-center justify-center border-2 border-espresso-900 text-sm">
-                    CL
-                  </span>
-                </div>
+                <span className="w-11 h-11 rounded-full bg-autumn-saffron text-white font-serif font-bold flex items-center justify-center border-2 border-amber-200/30 text-sm shrink-0">
+                  CT
+                </span>
                 <div>
                   <p className="font-serif italic text-base sm:text-lg text-amber-200">
-                    « Colorier 15 minutes le soir, c’est notre rituel anti-écran
-                    préféré. »
+                    « Colorier 15 minutes sous un plaid, c’est notre rituel
+                    anti-écran préféré. »
                   </p>
-                  <span className="text-xs text-linen-200/70">
-                    Anne-Caroline &amp; Clémentine — Créatrices de la collection
+                  <span className="text-xs text-linen-200/75">
+                    CaroTine — Collection Officielle Amazon KDP
                   </span>
                 </div>
               </div>
@@ -263,7 +251,7 @@ export default function DuoStory() {
                 <div className="relative z-20 pt-9 px-4 flex items-center justify-between text-white">
                   <div className="flex items-center gap-2">
                     <span className="w-7 h-7 rounded-full bg-autumn-saffron text-white font-serif font-bold text-xs flex items-center justify-center">
-                      AC
+                      CT
                     </span>
                     <div>
                       <span className="block text-xs font-bold leading-none">

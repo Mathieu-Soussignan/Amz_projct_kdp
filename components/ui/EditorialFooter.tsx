@@ -13,13 +13,18 @@ export default function EditorialFooter() {
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-amber-300/80">
               Collection Officielle • Amazon KDP
             </span>
-            <h3 className="font-serif text-3xl sm:text-4xl text-linen-50 tracking-tight">
-              Anne-Caroline &amp; Clémentine
+            <h3 className="font-serif text-3xl sm:text-4xl text-linen-50 tracking-tight inline-flex items-center">
+              <span>CaroT</span>
+              <span className="relative inline-flex flex-col items-center">
+                <Heart className="w-3.5 h-3.5 text-[#E06D8C] fill-[#E06D8C] -mb-1.5" />
+                <span>ı</span>
+              </span>
+              <span>ne</span>
             </h3>
             <p className="text-xs sm:text-sm text-linen-200/70 max-w-md leading-relaxed">
-              Sept albums de coloriage imaginés entre belles-sœurs pour offrir
-              des moments de calme, de douceur et de créativité aux feutres à
-              alcool, expédiés directement par Amazon.
+              Sept albums de coloriage Bold &amp; Easy imaginés pour offrir des
+              moments de calme, de douceur et de créativité aux feutres ou aux
+              crayons, expédiés directement par Amazon.
             </p>
           </div>
 
@@ -56,9 +61,9 @@ export default function EditorialFooter() {
         {/* Bottom Legal & KDP Notice */}
         <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[11px] text-linen-200/55">
           <p className="max-w-2xl leading-relaxed">
-            © {new Date().getFullYear()} Anne-Caroline &amp; Clémentine. Tous
-            nos ouvrages sont publiés et expédiés via Amazon Kindle Direct
-            Publishing (KDP) avec éligibilité Amazon Prime.
+            © {new Date().getFullYear()} CaroTine. Tous nos ouvrages sont
+            publiés et expédiés via Amazon Kindle Direct Publishing (KDP) avec
+            éligibilité Amazon Prime.
           </p>
           <p className="flex items-center gap-1.5 text-linen-200/75">
             <span>Conçu avec</span>

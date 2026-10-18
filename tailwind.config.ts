@@ -15,10 +15,10 @@ const config: Config = {
       },
       colors: {
         linen: {
-          50: "#FDFBF7",
-          100: "#F6F2EC",
-          200: "#EBE3D5",
-          300: "#DCD0BC",
+          50: "#FBF3E8",
+          100: "#F3E3CE",
+          200: "#E6CEB2",
+          300: "#D4B491",
         },
         autumn: {
           saffron: "#D97736",

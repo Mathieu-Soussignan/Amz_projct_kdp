@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import { BOOKS, type Book, type BookCategory } from "@/data/books";
+import CocoonPortal from "@/components/intro/CocoonPortal";
+import CocoonAtmosphere from "@/components/ui/CocoonAtmosphere";
 import EditorialHeader from "@/components/ui/EditorialHeader";
 import HeroVisual from "@/components/hero/HeroVisual";
 import BookGrid from "@/components/catalog/BookGrid";
@@ -11,6 +14,7 @@ import EditorialFooter from "@/components/ui/EditorialFooter";
 import StickyQuickCart from "@/components/ui/StickyQuickCart";
 
 export default function ShowcaseExperience() {
+  const [portalOpen, setPortalOpen] = useState(true);
   const [activeSeason, setActiveSeason] = useState<BookCategory>("automne");
   const [flipbookBook, setFlipbookBook] = useState<Book | null>(null);
 
@@ -20,41 +24,63 @@ export default function ShowcaseExperience() {
     setFlipbookBook(featured);
   };
 
+  const handlePortalEnter = (selectedBook?: Book) => {
+    if (selectedBook) {
+      setActiveSeason(selectedBook.category);
+    }
+    setPortalOpen(false);
+  };
+
   return (
-    <div
-      className={`min-h-screen flex flex-col bg-film-grain transition-colors duration-700 ${
-        activeSeason === "noel" ? "bg-[#FAF8F5]" : "bg-[#FDFBF7]"
-      }`}
-    >
-      {/* Editorial Navigation with Season Switcher */}
-      <EditorialHeader
-        activeSeason={activeSeason}
-        onSeasonChange={setActiveSeason}
-        onOpenFeaturedFlipbook={handleOpenFeaturedFlipbook}
-      />
+    <div className="relative min-h-screen flex flex-col text-espresso-900">
+      {/* 0. Living Warm Cocooning Background (Chai Latte, Fairy Bokeh Lights & Sketchbook Grain) */}
+      <CocoonAtmosphere activeSeason={activeSeason} />
 
-      {/* Main Content */}
-      <main className="flex-1">
-        {/* 1. Cinematic 3D Levitating Book Hero + Self-Drawing SVG Lines */}
-        <HeroVisual
+      {/* 1. Fullscreen "WoW" Entrance Portal with Double-Curtain & Golden Iris Transition */}
+      <CocoonPortal isOpen={portalOpen} onEnter={handlePortalEnter} />
+
+      {/* 2. Main Showcase Experience (Revealed smoothly as the portal doors open) */}
+      <motion.div
+        initial={false}
+        animate={
+          portalOpen
+            ? { scale: 0.96, opacity: 0.4, filter: "blur(4px)" }
+            : { scale: 1, opacity: 1, filter: "blur(0px)" }
+        }
+        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 min-h-screen flex flex-col"
+      >
+        {/* Editorial Navigation with Season Switcher & Intro Replay */}
+        <EditorialHeader
           activeSeason={activeSeason}
           onSeasonChange={setActiveSeason}
-          onOpenFlipbook={(book) => setFlipbookBook(book)}
+          onOpenFeaturedFlipbook={handleOpenFeaturedFlipbook}
+          onReplayIntro={() => setPortalOpen(true)}
         />
 
-        {/* 2. Physical Book Cards Catalogue with Sliding Interior Page Preview */}
-        <BookGrid
-          activeSeason={activeSeason}
-          onSeasonChange={setActiveSeason}
-          onOpenFlipbook={(book) => setFlipbookBook(book)}
-        />
+        {/* Main Content */}
+        <main className="flex-1">
+          {/* 1. Cinematic 3D Levitating Book Hero */}
+          <HeroVisual
+            activeSeason={activeSeason}
+            onSeasonChange={setActiveSeason}
+            onOpenFlipbook={(book) => setFlipbookBook(book)}
+          />
 
-        {/* 3. Anne-Caroline & Clémentine Duo Story + 9:16 TikTok Smartphone Mockup */}
-        <DuoStory />
-      </main>
+          {/* 2. Physical Book Cards Catalogue with Sliding Interior Page Preview */}
+          <BookGrid
+            activeSeason={activeSeason}
+            onSeasonChange={setActiveSeason}
+            onOpenFlipbook={(book) => setFlipbookBook(book)}
+          />
 
-      {/* Editorial Footer with All 7 Direct Amazon Links */}
-      <EditorialFooter />
+          {/* 3. CaroTine Story + 9:16 TikTok Smartphone Mockup */}
+          <DuoStory />
+        </main>
+
+        {/* Editorial Footer with All 7 Direct Amazon Links */}
+        <EditorialFooter />
+      </motion.div>
 
       {/* Mobile-Only Sticky Quick-Cart Bar (Appears after scrolling past Hero) */}
       <StickyQuickCart

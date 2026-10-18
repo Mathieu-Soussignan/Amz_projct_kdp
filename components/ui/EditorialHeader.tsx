@@ -2,19 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Sparkles, BookOpen, ArrowUpRight } from "lucide-react";
+import { Sparkles, BookOpen, ArrowUpRight, Heart } from "lucide-react";
 import type { BookCategory } from "@/data/books";
 
 interface EditorialHeaderProps {
   activeSeason: BookCategory;
   onSeasonChange: (season: BookCategory) => void;
   onOpenFeaturedFlipbook: () => void;
+  onReplayIntro?: () => void;
 }
 
 export default function EditorialHeader({
   activeSeason,
   onSeasonChange,
   onOpenFeaturedFlipbook,
+  onReplayIntro,
 }: EditorialHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -30,47 +32,71 @@ export default function EditorialHeader({
     <header
       className={`fixed top-0 inset-x-0 z-40 transition-all duration-500 ${
         scrolled
-          ? "py-2.5 bg-linen-50/85 backdrop-blur-xl border-b border-espresso-900/10"
+          ? "py-2.5 bg-[#F6E4CE]/90 backdrop-blur-xl border-b border-espresso-900/12 shadow-sm"
           : "py-4 sm:py-5 bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
-        {/* Left: Editorial Monogram & Signature */}
-        <a
-          href="#"
-          className="group flex items-center gap-3 focus:outline-none"
-        >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-500 border ${
-              isNoel
-                ? "bg-noel-pine text-linen-50 border-noel-pine"
-                : "bg-espresso-900 text-linen-50 border-espresso-900"
-            }`}
+        {/* Left: CaroTine Monogram & Signature (No Paris) */}
+        <div className="flex items-center gap-3">
+          <a
+            href="#"
+            onClick={(e) => {
+              if (onReplayIntro) {
+                e.preventDefault();
+                onReplayIntro();
+              }
+            }}
+            title="Revoir l'écran d'accueil CaroTine"
+            className="group flex items-center gap-3 focus:outline-none"
           >
-            <span className="font-serif italic font-bold text-base tracking-tighter">
-              A&amp;C
-            </span>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif font-bold text-base sm:text-lg leading-none text-espresso-900 tracking-tight">
-              Anne-Caroline &amp; Clémentine
-            </span>
-            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-espresso-800/60 mt-0.5 font-medium">
-              Maison d&apos;Édition KDP • Paris
-            </span>
-          </div>
-        </a>
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-500 border shadow-sm ${
+                isNoel
+                  ? "bg-noel-pine text-linen-50 border-noel-pine"
+                  : "bg-espresso-900 text-linen-50 border-espresso-900"
+              }`}
+            >
+              <span className="font-serif italic font-bold text-base tracking-tighter">
+                CT
+              </span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-lg sm:text-xl leading-none text-espresso-900 tracking-tight inline-flex items-center">
+                <span>CaroT</span>
+                <span className="relative inline-flex flex-col items-center">
+                  <Heart className="w-2.5 h-2.5 text-[#E06D8C] fill-[#E06D8C] -mb-1" />
+                  <span>ı</span>
+                </span>
+                <span>ne</span>
+              </span>
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-espresso-800/70 mt-0.5 font-semibold">
+                Collection Officielle KDP
+              </span>
+            </div>
+          </a>
+        </div>
 
         {/* Center Desktop Links */}
         <nav
           aria-label="Navigation éditoriale"
-          className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.16em] font-semibold text-espresso-800/80"
+          className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.16em] font-semibold text-espresso-800/85"
         >
+          {onReplayIntro && (
+            <button
+              type="button"
+              onClick={onReplayIntro}
+              className="hover:text-autumn-saffron transition-colors flex items-center gap-1.5 uppercase tracking-[0.16em]"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-autumn-saffron" />
+              <span>Accueil</span>
+            </button>
+          )}
           <a
             href="#catalogue"
             className="hover:text-espresso-900 transition-colors"
           >
-            01. Le Catalogue
+            01. La Collection
           </a>
           <button
             type="button"
@@ -84,7 +110,7 @@ export default function EditorialHeader({
             href="#duo-story"
             className="hover:text-espresso-900 transition-colors"
           >
-            03. Les Créatrices
+            03. L&apos;Univers CaroTine
           </a>
         </nav>
 
@@ -94,7 +120,7 @@ export default function EditorialHeader({
           <div
             role="group"
             aria-label="Sélecteur d'ambiance saisonnière"
-            className="flex items-center p-1 rounded-full bg-linen-200/80 border border-espresso-900/10"
+            className="flex items-center p-1 rounded-full bg-[#EAD2B5]/85 border border-espresso-900/12"
           >
             <button
               type="button"
@@ -102,7 +128,7 @@ export default function EditorialHeader({
               className={`relative px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-bold transition-all active:scale-95 ${
                 activeSeason === "automne"
                   ? "bg-autumn-saffron text-white shadow-sm"
-                  : "text-espresso-800/75 hover:text-espresso-900"
+                  : "text-espresso-800/80 hover:text-espresso-900"
               }`}
             >
               🍂 <span className="hidden xs:inline">Automne</span>
@@ -113,7 +139,7 @@ export default function EditorialHeader({
               className={`relative px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-bold transition-all active:scale-95 ${
                 activeSeason === "noel"
                   ? "bg-noel-pine text-white shadow-sm"
-                  : "text-espresso-800/75 hover:text-espresso-900"
+                  : "text-espresso-800/80 hover:text-espresso-900"
               }`}
             >
               🎄 <span className="hidden xs:inline">Noël</span>
@@ -123,7 +149,7 @@ export default function EditorialHeader({
           {/* TikTok 530K Community Badge */}
           <a
             href="#duo-story"
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-espresso-900 text-linen-50 text-[11px] font-semibold hover:bg-espresso-800 transition-transform active:scale-95"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-espresso-900 text-linen-50 text-[11px] font-semibold hover:bg-espresso-800 transition-transform active:scale-95 shadow-sm"
           >
             <span className="relative flex h-2 w-2">
               <motion.span
