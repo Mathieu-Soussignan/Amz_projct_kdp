@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { BOOKS, type Book, type BookCategory } from "@/data/books";
-import CocoonPortal from "@/components/intro/CocoonPortal";
+import CocoonPortal, {
+  detectCalendarSeason,
+} from "@/components/intro/CocoonPortal";
 import CocoonAtmosphere from "@/components/ui/CocoonAtmosphere";
 import EditorialHeader from "@/components/ui/EditorialHeader";
 import HeroVisual from "@/components/hero/HeroVisual";
@@ -18,15 +20,32 @@ export default function ShowcaseExperience() {
   const [activeSeason, setActiveSeason] = useState<BookCategory>("automne");
   const [flipbookBook, setFlipbookBook] = useState<Book | null>(null);
 
+  // Automatically sync initial season with the visitor's real calendar date
+  useEffect(() => {
+    const { season } = detectCalendarSeason(new Date());
+    if (season === "noel") {
+      setActiveSeason("noel");
+    } else if (season === "ete") {
+      setActiveSeason("classique");
+    } else {
+      setActiveSeason("automne");
+    }
+  }, []);
+
   const handleOpenFeaturedFlipbook = () => {
     const featured =
       BOOKS.find((b) => b.category === activeSeason) ?? BOOKS[0];
     setFlipbookBook(featured);
   };
 
-  const handlePortalEnter = (selectedBook?: Book) => {
+  const handlePortalEnter = (
+    selectedBook?: Book,
+    detectedSeason?: BookCategory
+  ) => {
     if (selectedBook) {
       setActiveSeason(selectedBook.category);
+    } else if (detectedSeason) {
+      setActiveSeason(detectedSeason);
     }
     setPortalOpen(false);
   };
@@ -36,7 +55,7 @@ export default function ShowcaseExperience() {
       {/* 0. Living Warm Cocooning Background (Chai Latte, Fairy Bokeh Lights & Sketchbook Grain) */}
       <CocoonAtmosphere activeSeason={activeSeason} />
 
-      {/* 1. Fullscreen "WoW" Entrance Portal with Double-Curtain & Golden Iris Transition */}
+      {/* 1. Fullscreen "WoW" Entrance Portal with Date-Synced Seasonal Animation & Curtain Transition */}
       <CocoonPortal isOpen={portalOpen} onEnter={handlePortalEnter} />
 
       {/* 2. Main Showcase Experience (Revealed smoothly as the portal doors open) */}
