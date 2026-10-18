@@ -191,28 +191,36 @@ export default function HeroVisual({
             </AnimatePresence>
 
             {/* Editorial Display Title */}
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-[64px] font-normal text-espresso-900 tracking-tight leading-[1.04]">
-              On pose le téléphone,{" "}
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-[62px] font-normal text-espresso-900 tracking-tight leading-[1.05]">
+              Oh coucou,{" "}
               <span className="italic font-light text-espresso-800">
-                on sort les feutres,
+                te revoilà !
               </span>{" "}
               <span
                 style={{ color: activeBook.accentColor }}
-                className="italic font-semibold transition-colors duration-500"
+                className="italic font-semibold transition-colors duration-500 block sm:inline"
               >
-                et on décompresse.
+                Bienvenue chez toi.
               </span>
             </h1>
 
-            {/* Authentic Editorial Lead Paragraph */}
-            <p className="text-base sm:text-lg text-espresso-800/85 max-w-xl leading-relaxed font-normal">
-              Les livres de coloriage imaginés par{" "}
+            {/* Creator's Exact Welcoming Message */}
+            <p className="text-base sm:text-lg text-espresso-800/90 max-w-xl leading-relaxed font-normal">
+              Ici, on lâche les écrans pour un{" "}
               <strong className="font-semibold text-espresso-900">
-                CaroTine
-              </strong>{" "}
-              (suivie par +530 000 abonnés sur TikTok). Des gros traits simples,
-              30 dessins originaux par livre et zéro détail minuscule — juste le
-              plaisir de colorier sans se prendre la tête.
+                vrai moment cocooning
+              </strong>
+              . Je t&apos;ai rassemblé mes coloriages faciles et anti-stress
+              préférés : des{" "}
+              <strong className="font-semibold text-espresso-900">
+                traits bien épais
+              </strong>
+              , zéro détail minuscule pour ne pas se prendre la tête, et que du
+              plaisir. Pour l&apos;automne au chaud sous un plaid, pour Noël ou
+              pour les nouveautés à venir...{" "}
+              <em className="font-serif italic font-semibold text-espresso-900">
+                pioche celui qui te fait du bien !
+              </em>
             </p>
 
             {/* Active Book Highlight Card */}
