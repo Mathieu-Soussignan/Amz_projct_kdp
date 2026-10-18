@@ -26,8 +26,8 @@ const TIKTOK_CLIPS = [
     likes: "184K",
     comments: "2 940",
     caption:
-      "Soirée pluvieuse + nos feutres à alcool sur le tome Automne Cozy 🍂☕ Le stylo gel blanc sur la tasse change tout !",
-    sound: "Son original • ASMR Feutres Alcool & Pluie d'Automne",
+      "Soirée pluvieuse sous le plaid avec crayons et feutres sur le tome Automne Cozy 🍂☕ Quel bonheur de colorier sans prise de tête !",
+    sound: "Son original • Pause Coloriage Cosy & Pluie d'Automne",
   },
   {
     id: "clip-capybara",
@@ -50,8 +50,8 @@ const TIKTOK_CLIPS = [
     likes: "142K",
     comments: "1 880",
     caption:
-      "Coloriage sans bavure sur le format carré 8,5x8,5 du Noël des Axolotls 💕 Regardez l'épaisseur des traits !",
-    sound: "ASMR Marker Brush • CaroTine",
+      "Gros traits simples et épurés sur le format carré 8,5x8,5 du Noël des Axolotls 💕 Idéal aux crayons comme aux feutres !",
+    sound: "Pause Cocooning • CaroTine",
   },
 ];
 
@@ -85,30 +85,28 @@ export default function DuoStory() {
 
             <div className="space-y-4 text-sm sm:text-base text-espresso-800/85 leading-relaxed max-w-2xl">
               <p>
-                Tout est né autour d&apos;une table couverte de feutres à alcool
-                et d&apos;une tasse de thé bien chaud : avec{" "}
-                <strong className="font-semibold text-espresso-900">
-                  CaroTine
-                </strong>
-                , nous avions envie de créer des livres de coloriage{" "}
+                Tout est parti d&apos;une envie toute simple autour d&apos;une
+                tasse de thé bien chaud : créer les livres de coloriage
+                qu&apos;on rêvait nous-mêmes d&apos;avoir à la maison. Des
+                dessins{" "}
                 <strong className="font-semibold text-espresso-900">
                   vraiment relaxants (Bold &amp; Easy)
                 </strong>
-                , loin des albums compliqués où l&apos;on passe trois heures sur
-                un détail minuscule.
+                , loin des cahiers compliqués où l&apos;on passe trois heures
+                sur un détail minuscule.
               </p>
               <p>
-                Suivie par une communauté de plus de{" "}
+                Que tu préfères sortir tes{" "}
                 <strong className="font-semibold text-espresso-900">
-                  530 000 abonnés sur TikTok
+                  crayons de couleur ou tes feutres
                 </strong>
-                , l&apos;aventure{" "}
+                , chaque album{" "}
                 <strong className="font-semibold text-espresso-900">
                   CaroTine
                 </strong>{" "}
-                réunit des dessins aux contours épais, ronds et ultra-mignons —
-                testés au feutre à alcool et pensés pour s&apos;offrir une vraie
-                parenthèse cocooning le soir.
+                rassemble 30 illustrations originales aux contours bien épais,
+                ronds et ultra-mignons — pensées pour déconnecter des écrans et
+                s&apos;offrir une vraie pause cocooning.
               </p>
             </div>
 
@@ -117,33 +115,36 @@ export default function DuoStory() {
               <div className="p-5 rounded-3xl bg-[#FBF3E8]/85 backdrop-blur-md border border-[#8C583A]/20 shadow-sm">
                 <PenTool className="w-5 h-5 text-autumn-saffron mb-3" />
                 <h3 className="font-serif font-bold text-base text-espresso-900">
-                  Traits Nets &amp; Épais
+                  Gros Traits &amp; Zéro Stress
                 </h3>
                 <p className="text-xs text-espresso-800/80 mt-1 leading-relaxed">
-                  Zéro prise de tête ni détail microscopique : chaque forme est
-                  pensée pour le plaisir immédiat du feutre.
+                  Aucun détail minuscule qui fatigue les yeux : des contours
+                  francs et généreux pour colorier sans jamais se prendre la
+                  tête.
                 </p>
               </div>
 
               <div className="p-5 rounded-3xl bg-[#FBF3E8]/85 backdrop-blur-md border border-[#8C583A]/20 shadow-sm">
                 <Layers className="w-5 h-5 text-noel-velvet mb-3" />
                 <h3 className="font-serif font-bold text-base text-espresso-900">
-                  Pensé pour les Feutres
+                  Crayons &amp; Feutres
                 </h3>
                 <p className="text-xs text-espresso-800/80 mt-1 leading-relaxed">
-                  Impression recto seul sur papier KDP sélectionné pour sublimer
-                  vos aplats aux feutres à alcool.
+                  Chaque dessin est imprimé d&apos;un seul côté de la feuille
+                  (recto seul) pour un confort total aux crayons de couleur
+                  comme aux feutres.
                 </p>
               </div>
 
               <div className="p-5 rounded-3xl bg-[#FBF3E8]/85 backdrop-blur-md border border-[#8C583A]/20 shadow-sm">
                 <Sparkles className="w-5 h-5 text-autumn-rust mb-3" />
                 <h3 className="font-serif font-bold text-base text-espresso-900">
-                  Co-Créé avec TikTok
+                  Pour Petits &amp; Grands
                 </h3>
                 <p className="text-xs text-espresso-800/80 mt-1 leading-relaxed">
-                  Des capybaras de Noël aux pâtisseries d&apos;automne, nos
-                  thèmes naissent des envies de nos 530K abonnés.
+                  Des capybaras de Noël aux gâteaux d&apos;automne en passant
+                  par l&apos;océan : des univers mignons et réconfortants qui
+                  font du bien à tout âge.
                 </p>
               </div>
             </div>
@@ -311,7 +312,7 @@ export default function DuoStory() {
                 <div className="relative z-20 p-4 text-white space-y-2.5">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md text-[10px] font-bold text-amber-200">
                     <Sparkles className="w-3 h-3" />
-                    <span>Timelapse Feutres à Alcool</span>
+                    <span>Pause Coloriage • Crayons &amp; Feutres</span>
                   </div>
 
                   <p className="text-xs leading-snug text-white/95 line-clamp-3">

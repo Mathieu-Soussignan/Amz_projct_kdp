@@ -21,7 +21,7 @@ export const BOOKS: Book[] = [
     subtitle: "Motifs chaleureux, dessins simples et relaxants contre le stress",
     category: "automne",
     badge: "Coup de Cœur Cozy",
-    features: ["Bold & Easy", "Anti-stress & Détente", "Papier adapté feutres"],
+    features: ["Bold & Easy", "Anti-stress & Détente", "Crayons & Feutres"],
     amazonUrl: "https://amzn.eu/d/0aqGtST4",
     coverImage: "/books/automne-cozy.jpg",
     interiorPreview: ["/books/automne-cozy-1.jpg", "/books/automne-cozy-2.jpg"],
