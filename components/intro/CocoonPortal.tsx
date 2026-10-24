@@ -137,13 +137,12 @@ export function detectCalendarSeason(date = new Date()): {
 }
 
 const FAN_LAYOUT = [
-  { offset: -3, x: -240, y: 38, rotate: -21, scale: 0.82, z: 10 },
-  { offset: -2, x: -165, y: 18, rotate: -14, scale: 0.88, z: 20 },
-  { offset: -1, x: -85, y: 5, rotate: -7, scale: 0.94, z: 30 },
-  { offset: 0, x: 0, y: -8, rotate: 0, scale: 1.05, z: 40 },
-  { offset: 1, x: 85, y: 5, rotate: 7, scale: 0.94, z: 30 },
-  { offset: 2, x: 165, y: 18, rotate: 14, scale: 0.88, z: 20 },
-  { offset: 3, x: 240, y: 38, rotate: 21, scale: 0.82, z: 10 },
+  { offset: -2.5, x: -225, y: 34, rotate: -19, scale: 0.84, z: 10 },
+  { offset: -1.5, x: -135, y: 14, rotate: -11, scale: 0.9, z: 20 },
+  { offset: -0.5, x: -45, y: -4, rotate: -3.5, scale: 0.98, z: 35 },
+  { offset: 0.5, x: 45, y: -4, rotate: 3.5, scale: 0.98, z: 35 },
+  { offset: 1.5, x: 135, y: 14, rotate: 11, scale: 0.9, z: 20 },
+  { offset: 2.5, x: 225, y: 34, rotate: 19, scale: 0.84, z: 10 },
 ];
 
 interface Particle {
@@ -170,7 +169,7 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
   const [portalSeason, setPortalSeason] = useState<CalendarSeason>("automne");
   const [isManualOverride, setIsManualOverride] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
-  const [hoveredIdx, setHoveredIdx] = useState<number>(3);
+  const [hoveredIdx, setHoveredIdx] = useState<number>(2);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const pointerPosRef = useRef<{ x: number; y: number }>({ x: -999, y: -999 });
@@ -195,38 +194,48 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
 
   const seasonCfg = SEASON_CONFIGS[portalSeason];
 
-  // Arrange the 7 books so that the books matching the current season sit right in the center (indices 2, 3, 4)
+  // Arrange the 6 books so that the books matching the current season sit right in the center slots (indices 2 and 3)
   const orderedBooks = useMemo(() => {
     const targetCat = seasonCfg.mappedBookCategory;
     const priority = BOOKS.filter((b) => b.category === targetCat);
     const rest = BOOKS.filter((b) => b.category !== targetCat);
-    if (priority.length === 3) {
-      // Put the 3 seasonal books in center slots (2, 3, 4) and the other 4 around them (0, 1 and 5, 6)
+
+    if (priority.length === 2) {
+      // Automne (2 books): place the 2 Automne books in the center (slots 2 & 3), flanked by 2 books on each side
       return [
         rest[0]!,
         rest[1]!,
         priority[0]!,
         priority[1]!,
-        priority[2]!,
         rest[2]!,
         rest[3]!,
-      ];
+      ].filter(Boolean);
     }
-    // For "classique" (Lolo & Lili, 1 book), put Lolo & Lili dead center (index 3)
+    if (priority.length === 3) {
+      // Noël (3 books): place the 3 Noël books in the middle (slots 1, 2, 3)
+      return [
+        rest[0]!,
+        priority[0]!,
+        priority[1]!,
+        priority[2]!,
+        rest[1]!,
+        rest[2]!,
+      ].filter(Boolean);
+    }
+    // Classique / Lolo & Lili (1 book): place it in center slot 2
     return [
       rest[0]!,
       rest[1]!,
+      priority[0] ?? BOOKS[0]!,
       rest[2]!,
-      priority[0] ?? BOOKS[6]!,
       rest[3]!,
       rest[4]!,
-      rest[5]!,
-    ];
+    ].filter(Boolean);
   }, [seasonCfg.mappedBookCategory]);
 
-  // Reset hovered book to center slot (3) when switching season
+  // Reset hovered book to center slot (2) when switching season
   useEffect(() => {
-    setHoveredIdx(3);
+    setHoveredIdx(2);
   }, [portalSeason]);
 
   // Interactive 60fps Seasonal Canvas Physics (Autumn Leaves / Winter Snowflakes / Spring Petals / Summer Bubbles)
@@ -515,7 +524,7 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
 
   if (!isOpen) return null;
 
-  const activeBook = orderedBooks[hoveredIdx] ?? orderedBooks[3] ?? BOOKS[0];
+  const activeBook = orderedBooks[hoveredIdx] ?? orderedBooks[2] ?? BOOKS[0];
 
   return (
     <div
@@ -700,7 +709,7 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
           className="relative w-full h-[230px] sm:h-[295px] mt-3 sm:mt-5 flex items-center justify-center"
         >
           {orderedBooks.map((book, idx) => {
-            const fan = FAN_LAYOUT[idx] ?? FAN_LAYOUT[3]!;
+            const fan = FAN_LAYOUT[idx] ?? FAN_LAYOUT[2]!;
             const isHovered = hoveredIdx === idx;
             return (
               <motion.div
@@ -738,7 +747,7 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
                   shadow-[0_25px_50px_-12px_rgba(0,0,0,0.68)]
                   border-2 border-amber-100/30 hover:border-amber-300
                   transition-colors
-                  max-sm:[&:nth-child(1)]:hidden max-sm:[&:nth-child(7)]:hidden
+                  max-sm:[&:nth-child(1)]:hidden max-sm:[&:nth-child(6)]:hidden
                 "
               >
                 <Image

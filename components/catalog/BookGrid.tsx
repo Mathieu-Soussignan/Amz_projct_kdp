@@ -21,13 +21,13 @@ const FILTER_TABS: {
   {
     id: "all",
     label: "Toute la Collection",
-    tag: "7 Éditions",
+    tag: "6 Éditions",
     emoji: "✦",
   },
   {
     id: "automne",
     label: "Collection Automne",
-    tag: "3 Livres Prioritaires",
+    tag: "2 Livres Prioritaires",
     emoji: "🍂",
   },
   {
@@ -74,7 +74,7 @@ export default function BookGrid({
               <span>01 / Catalogue Officiel Amazon KDP</span>
             </div>
             <h2 className="mt-3 font-serif text-3xl sm:text-5xl font-normal text-espresso-900 tracking-tight leading-[1.08]">
-              Nos 7 livres{" "}
+              Nos 6 livres{" "}
               <span className="italic font-light text-espresso-800">
                 de coloriage,
               </span>{" "}

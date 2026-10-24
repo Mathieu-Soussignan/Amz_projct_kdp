@@ -20,7 +20,7 @@ Ouvrez ensuite [http://localhost:3000](http://localhost:3000) dans votre navigat
 
 ## Structure du Projet
 
-- `data/books.ts` : Catalogue officiel des 7 livres KDP (Automne, Noël, Classique) et liens Amazon.
+- `data/books.ts` : Catalogue officiel des 6 livres KDP (Automne, Noël, Classique) et liens Amazon.
 - `components/hero/HeroVisual.tsx` : Scène Hero interactive avec bascule saisonnière (Automne / Noël) et livre 3D.
 - `components/catalog/BookGrid.tsx` & `BookCard.tsx` : Grille de la collection avec aperçu intérieur au survol.
 - `components/preview/FlipbookModal.tsx` : Feuilleteur interactif plein écran (4ème de couverture officielle, extrait intérieur et couverture) avec bruissement papier ASMR.

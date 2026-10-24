@@ -28,26 +28,6 @@ export const BOOKS: Book[] = [
     accentColor: "#D97736",
   },
   {
-    id: "automne-gourmand",
-    title: "Automne Gourmand",
-    subtitle:
-      "30 illustrations cozy de pâtisseries d'automne & gâteaux citrouille",
-    category: "automne",
-    badge: "Gourmand & Réconfortant",
-    features: [
-      "30 Recettes & Pâtisseries illustrées",
-      "Gros traits faciles",
-      "Ambiance Hygge",
-    ],
-    amazonUrl: "https://amzn.eu/d/00X36baW",
-    coverImage: "/books/automne-gourmand.jpg",
-    interiorPreview: [
-      "/books/automne-gourmand-1.jpg",
-      "/books/automne-gourmand-2.jpg",
-    ],
-    accentColor: "#C86D3B",
-  },
-  {
     id: "petits-animaux-automne",
     title: "Les Petits Animaux en Automne",
     subtitle: "30 Coloriages mignons dans la forêt d'automne",
@@ -170,20 +150,8 @@ export const BOOK_EDITORIAL_META: Record<
       "Quatrième de Couverture Officielle — Aperçu des 30 Coloriages par CaroTine",
     ],
   },
-  "automne-gourmand": {
-    editionNumber: "ÉD. 02 — ÉDITION CAKE DESIGN",
-    formatLabel: "Format Carré 21,6 × 21,6 cm",
-    paperSpec: "30 Coloriages de Cake Design • Bold & Easy",
-    creatorNote:
-      "30 illustrations gourmandes de cake design d'automne : layer cakes fleuris, glaçages fondants, noix dorées et baies d'hiver par CaroTine.",
-    palette: ["#C86D3B", "#F4A261", "#E76F51", "#FFE6A7", "#6F4E37"],
-    pageCaptions: [
-      "Extrait Intérieur Officiel — Drip Cake Fleuri d'Automne",
-      "Quatrième de Couverture Officielle — Les 4 Pâtisseries & Conseils Feutres",
-    ],
-  },
   "petits-animaux-automne": {
-    editionNumber: "ÉD. 03 — FORÊT D'AUTOMNE",
+    editionNumber: "ÉD. 02 — FORÊT D'AUTOMNE",
     formatLabel: "Format Grand Confort • Dès 4 ans",
     paperSpec: "30 Coloriages inédits • Par CaroTine",
     creatorNote:
@@ -195,7 +163,7 @@ export const BOOK_EDITORIAL_META: Record<
     ],
   },
   "noel-capybaras": {
-    editionNumber: "ÉD. 04 — ÉDITION SPÉCIALE FÊTES",
+    editionNumber: "ÉD. 03 — ÉDITION SPÉCIALE FÊTES",
     formatLabel: "Format Carré 21,6 × 21,6 cm",
     paperSpec: "30 Coloriages Bold & Easy • Par CaroTine",
     creatorNote:
@@ -207,7 +175,7 @@ export const BOOK_EDITORIAL_META: Record<
     ],
   },
   "noel-axolotls": {
-    editionNumber: "ÉD. 05 — FÉÉRIE SOUS LE SAPIN",
+    editionNumber: "ÉD. 04 — FÉÉRIE SOUS LE SAPIN",
     formatLabel: "Format Carré 8,5 × 8,5 po (21,6 cm)",
     paperSpec: "Gros traits simples & épurés • Par CaroTine",
     creatorNote:
@@ -219,7 +187,7 @@ export const BOOK_EDITORIAL_META: Record<
     ],
   },
   "noel-dinosaures": {
-    editionNumber: "ÉD. 06 — DINOSAURES DE NOËL",
+    editionNumber: "ÉD. 05 — DINOSAURES DE NOËL",
     formatLabel: "Format Carré 21,6 × 21,6 cm",
     paperSpec: "30 Coloriages Bold & Easy • Par CaroTine",
     creatorNote:
@@ -231,7 +199,7 @@ export const BOOK_EDITORIAL_META: Record<
     ],
   },
   "lolo-et-lili": {
-    editionNumber: "ÉD. 07 — ÉDITION SPÉCIALE OCÉAN",
+    editionNumber: "ÉD. 06 — ÉDITION SPÉCIALE OCÉAN",
     formatLabel: "Format Grand Confort (24 × 31 cm)",
     paperSpec: "30 Coloriages • Trait épais, facile et amusant",
     creatorNote:

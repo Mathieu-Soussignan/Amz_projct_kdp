@@ -19,7 +19,7 @@ import { BOOKS, BLUR_PLACEHOLDER } from "@/data/books";
 const TIKTOK_CLIPS = [
   {
     id: "clip-automne",
-    book: BOOKS[0], // Coloriages d'Automne Cozy
+    book: BOOKS.find((b) => b.id === "automne-cozy") ?? BOOKS[0]!, // Coloriages d'Automne Cozy
     handle: "@CaroTine",
     followers: "530K+ abonnés",
     views: "1,9M vues",
@@ -31,7 +31,7 @@ const TIKTOK_CLIPS = [
   },
   {
     id: "clip-capybara",
-    book: BOOKS[3], // Noël Magique des Capybaras
+    book: BOOKS.find((b) => b.id === "noel-capybaras") ?? BOOKS[0]!, // Noël Magique des Capybaras
     handle: "@CaroTine",
     followers: "530K+ abonnés",
     views: "2,4M vues",
@@ -43,7 +43,7 @@ const TIKTOK_CLIPS = [
   },
   {
     id: "clip-axolotl",
-    book: BOOKS[4], // Le Noël Magique des Axolotls
+    book: BOOKS.find((b) => b.id === "noel-axolotls") ?? BOOKS[0]!, // Le Noël Magique des Axolotls
     handle: "@CaroTine",
     followers: "530K+ abonnés",
     views: "1,3M vues",
@@ -142,9 +142,9 @@ export default function DuoStory() {
                   Pour Petits &amp; Grands
                 </h3>
                 <p className="text-xs text-espresso-800/80 mt-1 leading-relaxed">
-                  Des capybaras de Noël aux gâteaux d&apos;automne en passant
-                  par l&apos;océan : des univers mignons et réconfortants qui
-                  font du bien à tout âge.
+                  Des capybaras de Noël aux petits animaux de la forêt en
+                  passant par l&apos;océan : des univers mignons et
+                  réconfortants qui font du bien à tout âge.
                 </p>
               </div>
             </div>
@@ -170,7 +170,7 @@ export default function DuoStory() {
                 href="#catalogue"
                 className="shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-linen-50 transition-colors"
               >
-                <span>Voir les 7 livres</span>
+                <span>Voir les 6 livres</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>

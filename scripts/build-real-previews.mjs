@@ -12,12 +12,6 @@ const CROP_CONFIG = {
     extract: { left: 223, top: 162, width: 155, height: 155 },
     label: "Chocolat chaud & Guimauves — Extrait officiel",
   },
-  "automne-gourmand": {
-    // Top-right square: drip layer cake with autumn roses
-    type: "rect",
-    extract: { left: 344, top: 73, width: 165, height: 165 },
-    label: "Layer Cake d'Automne — Extrait officiel",
-  },
   "petits-animaux-automne": {
     // Center circle: cute owl on autumn branch under the stars
     type: "circle",

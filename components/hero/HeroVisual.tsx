@@ -158,7 +158,7 @@ export default function HeroVisual({
                   : "text-espresso-800 hover:bg-linen-200/70"
               }`}
             >
-              🌊 Tout (7)
+              🌊 Tout (6)
             </button>
           </div>
         </div>
