@@ -98,19 +98,25 @@ export default function EditorialHeader({
           >
             01. La Collection
           </a>
+          <a
+            href="#atelier-interactif"
+            className="hover:text-espresso-900 transition-colors"
+          >
+            02. Essayer un Coloriage
+          </a>
           <button
             type="button"
             onClick={onOpenFeaturedFlipbook}
             className="hover:text-espresso-900 transition-colors flex items-center gap-1.5 uppercase tracking-[0.16em]"
           >
             <BookOpen className="w-3.5 h-3.5 text-autumn-saffron" />
-            <span>02. Feuilleter</span>
+            <span>03. Feuilleter</span>
           </button>
           <a
             href="#duo-story"
             className="hover:text-espresso-900 transition-colors"
           >
-            03. L&apos;Univers CaroTine
+            04. L&apos;Univers CaroTine
           </a>
         </nav>
 

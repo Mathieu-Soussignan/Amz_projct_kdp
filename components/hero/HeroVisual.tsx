@@ -269,6 +269,7 @@ export default function HeroVisual({
                   href={activeBook.amazonUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-cursor="amazon"
                   whileTap={{ scale: 0.96 }}
                   style={{ backgroundColor: activeBook.accentColor }}
                   className="flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl text-white font-bold text-sm sm:text-base shadow-lg transition-opacity hover:opacity-95"
@@ -279,6 +280,7 @@ export default function HeroVisual({
 
                 <motion.button
                   type="button"
+                  data-cursor="book"
                   onClick={() => onOpenFlipbook(activeBook)}
                   whileTap={{ scale: 0.96 }}
                   className="inline-flex items-center justify-center gap-2 px-5 py-4 rounded-2xl bg-espresso-900 text-linen-50 font-bold text-sm hover:bg-espresso-800 transition-colors"
@@ -326,6 +328,7 @@ export default function HeroVisual({
                     rotateX,
                     rotateY,
                   }}
+                  data-cursor="book"
                   onClick={() => onOpenFlipbook(activeBook)}
                   className="relative z-20 w-[82%] aspect-square cursor-pointer group"
                 >

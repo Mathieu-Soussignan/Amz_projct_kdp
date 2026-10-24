@@ -7,9 +7,12 @@ import CocoonPortal, {
   detectCalendarSeason,
 } from "@/components/intro/CocoonPortal";
 import CocoonAtmosphere from "@/components/ui/CocoonAtmosphere";
+import CustomCursor from "@/components/ui/CustomCursor";
 import EditorialHeader from "@/components/ui/EditorialHeader";
 import HeroVisual from "@/components/hero/HeroVisual";
 import BookGrid from "@/components/catalog/BookGrid";
+import InteractiveColoringStudio from "@/components/studio/InteractiveColoringStudio";
+import CommunityLoveWall from "@/components/social/CommunityLoveWall";
 import FlipbookModal from "@/components/preview/FlipbookModal";
 import DuoStory from "@/components/story/DuoStory";
 import EditorialFooter from "@/components/ui/EditorialFooter";
@@ -52,6 +55,9 @@ export default function ShowcaseExperience() {
 
   return (
     <div className="relative min-h-screen flex flex-col text-espresso-900">
+      {/* Awwwards Context-Aware Spring Cursor (Desktop Pointer Only) */}
+      <CustomCursor />
+
       {/* 0. Living Warm Cocooning Background (Chai Latte, Fairy Bokeh Lights & Sketchbook Grain) */}
       <CocoonAtmosphere activeSeason={activeSeason} />
 
@@ -93,11 +99,19 @@ export default function ShowcaseExperience() {
             onOpenFlipbook={(book) => setFlipbookBook(book)}
           />
 
-          {/* 3. CaroTine Story + 9:16 TikTok Smartphone Mockup */}
+          {/* 3. Interactive "Try Before You Buy" Coloring Studio & Line-Art X-Ray Slider */}
+          <InteractiveColoringStudio />
+
+          {/* 4. Kinetic Ribbon + 1-Click Mood Matcher Quiz + Verified Reader Love Wall */}
+          <CommunityLoveWall
+            onOpenFlipbook={(book) => setFlipbookBook(book)}
+          />
+
+          {/* 5. CaroTine Story + 9:16 TikTok Smartphone Mockup */}
           <DuoStory />
         </main>
 
-        {/* Editorial Footer with All 7 Direct Amazon Links */}
+        {/* Editorial Footer with All 6 Direct Amazon Links */}
         <EditorialFooter />
       </motion.div>
 

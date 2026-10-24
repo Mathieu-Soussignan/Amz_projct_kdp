@@ -22,7 +22,15 @@ export default function BookCard({
   onOpenFlipbook,
 }: BookCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [glare, setGlare] = useState({ x: 50, y: 50 });
   const meta = BOOK_EDITORIAL_META[book.id];
+
+  const handleCardPointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+    const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+    setGlare({ x, y });
+  };
 
   return (
     <motion.article
@@ -38,6 +46,7 @@ export default function BookCard({
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onPointerMove={handleCardPointerMove}
       className="group relative flex flex-col justify-between rounded-[32px] bg-[#FBF3E8]/85 hover:bg-[#FBF3E8] backdrop-blur-md border border-[#8C583A]/20 shadow-[0_20px_50px_-15px_rgba(92,50,22,0.12)] p-6 sm:p-7 transition-all duration-500"
     >
       {/* Ambient Warm Candlelight Wash on Hover */}
@@ -67,6 +76,7 @@ export default function BookCard({
 
         {/* Physical Book Stage — Clean Z-Layered Stack (Zero 3D Z-Fighting) */}
         <div
+          data-cursor="book"
           onClick={() => onOpenFlipbook(book)}
           className="relative my-3 py-5 flex items-center justify-center select-none cursor-pointer"
         >
@@ -117,6 +127,12 @@ export default function BookCard({
                 className="absolute inset-y-0.5 -left-3 w-3.5 rounded-l-md brightness-75 shadow-inner"
               />
 
+              {/* Physical Right Paper Block Edges (30 Pages Thickness) */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-y-1.5 -right-2 w-2.5 rounded-r-sm bg-[repeating-linear-gradient(90deg,#FDFBF7,#FDFBF7_1px,#E5DEC9_2px)] border-y border-r border-espresso-900/20 shadow-sm"
+              />
+
               {/* Front Cover Image */}
               <div className="relative w-full h-full rounded-[16px] overflow-hidden bg-linen-50 shadow-physical-book group-hover:shadow-physical-book-hover border border-espresso-900/15">
                 <Image
@@ -132,6 +148,14 @@ export default function BookCard({
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-y-0 left-0 w-5 bg-gradient-to-r from-black/30 via-white/25 to-transparent"
+                />
+                {/* Interactive Specular Paper Glare on Hover */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0) 60%)`,
+                  }}
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay"
                 />
               </div>
             </motion.div>
@@ -210,9 +234,16 @@ export default function BookCard({
           href={book.amazonUrl}
           target="_blank"
           rel="noopener noreferrer"
+          data-cursor="amazon"
           whileTap={{ scale: 0.96 }}
           className="relative w-full overflow-hidden rounded-2xl bg-espresso-900 hover:bg-espresso-800 text-linen-50 p-3.5 shadow-md flex items-center justify-between gap-3 transition-colors group/btn"
         >
+          {/* Golden Shimmer Sweep on Hover */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-amber-200/15 to-transparent"
+          />
+
           <span
             aria-hidden="true"
             style={{ backgroundColor: book.accentColor }}
