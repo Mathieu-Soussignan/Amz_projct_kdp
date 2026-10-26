@@ -76,8 +76,14 @@ export default function BookCard({
 
         {/* Physical Book Stage — Clean Z-Layered Stack (Zero 3D Z-Fighting) */}
         <div
-          data-cursor="book"
-          onClick={() => onOpenFlipbook(book)}
+          data-cursor={book.classicCoverOnly ? "amazon" : "book"}
+          onClick={() => {
+            if (book.classicCoverOnly) {
+              window.open(book.amazonUrl, "_blank", "noopener,noreferrer");
+            } else {
+              onOpenFlipbook(book);
+            }
+          }}
           className="relative my-3 py-5 flex items-center justify-center select-none cursor-pointer"
         >
           {/* Projected Table Surface Shadow */}
@@ -88,33 +94,37 @@ export default function BookCard({
 
           <div className="relative w-[78%] max-w-[260px] aspect-square">
             {/* LAYER 1 (z-10, strictly behind cover): Interior Preview Page Fanning Out on Hover */}
-            <motion.div
-              initial={false}
-              animate={
-                isHovered
-                  ? { x: 24, y: -8, rotate: 6, scale: 0.95, opacity: 1 }
-                  : { x: 0, y: 0, rotate: 0, scale: 0.92, opacity: 0 }
-              }
-              transition={{ type: "spring", stiffness: 260, damping: 24 }}
-              className="absolute inset-0 z-10 rounded-[16px] overflow-hidden bg-[#FFFDF9] border border-espresso-900/20 shadow-md pointer-events-none"
-            >
-              <Image
-                src={`${book.interiorPreview[0]}?v=real`}
-                alt={`Aperçu intérieur de ${book.title}`}
-                fill
-                sizes="260px"
-                placeholder="blur"
-                blurDataURL={BLUR_PLACEHOLDER}
-                className="object-cover"
-              />
-            </motion.div>
+            {!book.classicCoverOnly && (
+              <motion.div
+                initial={false}
+                animate={
+                  isHovered
+                    ? { x: 24, y: -8, rotate: 6, scale: 0.95, opacity: 1 }
+                    : { x: 0, y: 0, rotate: 0, scale: 0.92, opacity: 0 }
+                }
+                transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                className="absolute inset-0 z-10 rounded-[16px] overflow-hidden bg-[#FFFDF9] border border-espresso-900/20 shadow-md pointer-events-none"
+              >
+                <Image
+                  src={`${book.interiorPreview[0]}?v=real`}
+                  alt={`Aperçu intérieur de ${book.title}`}
+                  fill
+                  sizes="260px"
+                  placeholder="blur"
+                  blurDataURL={BLUR_PLACEHOLDER}
+                  className="object-cover"
+                />
+              </motion.div>
+            )}
 
             {/* LAYER 2 (z-20, always on top): Physical Front Cover + Spine */}
             <motion.div
               initial={false}
               animate={
                 isHovered
-                  ? { x: -6, y: -5, rotate: -1, scale: 1.02 }
+                  ? book.classicCoverOnly
+                    ? { y: -5, scale: 1.02 }
+                    : { x: -6, y: -5, rotate: -1, scale: 1.02 }
                   : { x: 0, y: 0, rotate: 0, scale: 1 }
               }
               transition={{ type: "spring", stiffness: 260, damping: 24 }}
@@ -164,17 +174,33 @@ export default function BookCard({
 
         {/* Interactive Hint Pill */}
         <div className="mt-2 flex items-center justify-center">
-          <button
-            type="button"
-            onClick={() => onOpenFlipbook(book)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/85 hover:bg-espresso-900 text-espresso-900 hover:text-linen-50 text-xs font-bold border border-espresso-900/10 transition-colors shadow-sm"
-          >
-            <BookOpen
-              style={{ color: book.accentColor }}
-              className="w-3.5 h-3.5"
-            />
-            <span>Feuilleter l&apos;intérieur</span>
-          </button>
+          {book.classicCoverOnly ? (
+            <a
+              href={book.amazonUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="amazon"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/85 hover:bg-espresso-900 text-espresso-900 hover:text-linen-50 text-xs font-bold border border-espresso-900/10 transition-colors shadow-sm"
+            >
+              <ArrowUpRight
+                style={{ color: book.accentColor }}
+                className="w-3.5 h-3.5"
+              />
+              <span>Voir directement sur Amazon</span>
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={() => onOpenFlipbook(book)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/85 hover:bg-espresso-900 text-espresso-900 hover:text-linen-50 text-xs font-bold border border-espresso-900/10 transition-colors shadow-sm"
+            >
+              <BookOpen
+                style={{ color: book.accentColor }}
+                className="w-3.5 h-3.5"
+              />
+              <span>Feuilleter l&apos;intérieur</span>
+            </button>
+          )}
         </div>
 
         {/* Book Typography & Features */}

@@ -31,11 +31,11 @@ export const metadata: Metadata = {
   title:
     "CaroTine — Collection Officielle de Livres de Coloriage (Amazon KDP)",
   description:
-    "Découvrez les 6 livres de coloriage Bold & Easy créés par CaroTine (530K+ sur TikTok) : Automne Cozy, Petits Animaux, Noël des Capybaras, Axolotls, Dinosaures et Lolo & Lili.",
+    "Découvrez les 8 livres de coloriage créés par CaroTine (530K+ sur TikTok) : Automne Cozy, Petits Animaux, Noël des Capybaras, Axolotls, Dinosaures, Maisons Enchantées, Lolo & Lili et Les Vacances de Clem.",
   openGraph: {
     title: "CaroTine — Livres de Coloriage Officiels",
     description:
-      "Feuilletez nos 6 carnets de coloriage en 3D et commandez directement sur Amazon (Disponible en Prime).",
+      "Feuilletez nos carnets de coloriage en 3D et commandez directement sur Amazon (Disponible en Prime).",
     type: "website",
     locale: "fr_FR",
   },

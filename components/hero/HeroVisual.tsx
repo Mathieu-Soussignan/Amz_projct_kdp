@@ -35,7 +35,8 @@ export default function HeroVisual({
   onSeasonChange,
   onOpenFlipbook,
 }: HeroVisualProps) {
-  const seasonBooks = BOOKS.filter((b) =>
+  const heroBooks = BOOKS.filter((b) => !b.classicCoverOnly);
+  const seasonBooks = heroBooks.filter((b) =>
     activeSeason === "classique" ? true : b.category === activeSeason
   );
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -158,7 +159,7 @@ export default function HeroVisual({
                   : "text-espresso-800 hover:bg-linen-200/70"
               }`}
             >
-              🌊 Tout (6)
+              🌊 Tout (7)
             </button>
           </div>
         </div>

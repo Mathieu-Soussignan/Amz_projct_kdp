@@ -13,6 +13,7 @@ import {
   Hand,
   Sparkles,
   BookOpen,
+  ZoomIn,
 } from "lucide-react";
 import {
   BOOKS,
@@ -36,6 +37,12 @@ export default function FlipbookModal({
   const [pageIdx, setPageIdx] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [asmrEnabled, setAsmrEnabled] = useState(true);
+  const [magnifierEnabled, setMagnifierEnabled] = useState(true);
+  const [lensPos, setLensPos] = useState<{
+    x: number;
+    y: number;
+    visible: boolean;
+  }>({ x: 50, y: 50, visible: false });
   const audioCtxRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
@@ -177,6 +184,21 @@ export default function FlipbookModal({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            {/* Macro x2.5 Zoom Lens Toggle */}
+            <button
+              type="button"
+              onClick={() => setMagnifierEnabled((v) => !v)}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                magnifierEnabled
+                  ? "bg-amber-400/20 text-amber-200 border border-amber-300/30"
+                  : "bg-white/10 text-linen-200/60"
+              }`}
+              title="Activer ou couper la loupe grossissante x2.5"
+            >
+              <ZoomIn className="w-3.5 h-3.5 text-amber-300" />
+              <span className="hidden sm:inline">Loupe x2.5</span>
+            </button>
+
             {/* Optional ASMR Paper/Marker Sound Toggle */}
             <button
               type="button"
@@ -253,6 +275,15 @@ export default function FlipbookModal({
                     if (info.offset.x < -45) handleNext();
                     if (info.offset.x > 45) handlePrev();
                   }}
+                  onPointerMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    setLensPos({ x, y, visible: true });
+                  }}
+                  onPointerLeave={() =>
+                    setLensPos((prev) => ({ ...prev, visible: false }))
+                  }
                   style={{ transformOrigin: "left center" }}
                   className="relative w-full h-full rounded-[26px] bg-[#FFFDF9] shadow-2xl border-4 border-linen-200 overflow-hidden cursor-grab active:cursor-grabbing"
                 >
@@ -265,6 +296,22 @@ export default function FlipbookModal({
                     blurDataURL={BLUR_PLACEHOLDER}
                     className="object-contain p-2"
                   />
+
+                  {/* Macro x2.5 Brass-Rimmed Magnifying Lens on Hover */}
+                  {magnifierEnabled && lensPos.visible && (
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        left: `${lensPos.x}%`,
+                        top: `${lensPos.y}%`,
+                        backgroundImage: `url(${currentSlide.src})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "250%",
+                        backgroundPosition: `${lensPos.x}% ${lensPos.y}%`,
+                      }}
+                      className="pointer-events-none hidden sm:block absolute w-36 h-36 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-amber-300 shadow-[0_15px_35px_rgba(0,0,0,0.45),inset_0_0_18px_rgba(255,255,255,0.6)] bg-[#FFFDF9] z-30"
+                    />
+                  )}
 
                   {/* Left Book Binding Shadow */}
                   <div
@@ -399,7 +446,7 @@ export default function FlipbookModal({
                 Feuilleter un autre album de la collection :
               </span>
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-                {BOOKS.map((b) => (
+                {BOOKS.filter((b) => !b.classicCoverOnly).map((b) => (
                   <button
                     key={b.id}
                     type="button"

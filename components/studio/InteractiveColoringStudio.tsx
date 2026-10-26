@@ -11,13 +11,16 @@ import {
   SlidersHorizontal,
   Palette,
   Check,
+  Download,
 } from "lucide-react";
 import { BOOKS, BLUR_PLACEHOLDER, type Book } from "@/data/books";
+
+type DrawingTemplateId = "mug" | "capybara" | "axolotl";
 
 const MARKER_PALETTE = [
   { name: "Orange Citrouille", hex: "#D97736" },
   { name: "Rouge Bonnet", hex: "#C0392B" },
-  { name: "Chocolat Chaud", hex: "#7F4F24" },
+  { name: "Chocolat Chaud", hex: "#9C6644" },
   { name: "Miel Doré", hex: "#F4A261" },
   { name: "Rose Guimauve", hex: "#E06D8C" },
   { name: "Vert Sapin", hex: "#277455" },
@@ -27,38 +30,95 @@ const MARKER_PALETTE = [
 
 const INITIAL_ZONES: Record<string, string> = {
   skyHalo: "#FFFDF9",
-  mugBody: "#FFFDF9",
-  mugHandle: "#FFFDF9",
-  chocolateDrip: "#FFFDF9",
-  marshmallows: "#FFFDF9",
-  cinnamonStick: "#FFFDF9",
-  leafLeft: "#FFFDF9",
-  leafRight: "#FFFDF9",
-  saucer: "#FFFDF9",
-  heartCenter: "#FFFDF9",
+  zone1: "#FFFDF9",
+  zone2: "#FFFDF9",
+  zone3: "#FFFDF9",
+  zone4: "#FFFDF9",
+  zone5: "#FFFDF9",
+  zone6: "#FFFDF9",
+  zone7: "#FFFDF9",
+  zone8: "#FFFDF9",
+  zone9: "#FFFDF9",
 };
 
-const MAGIC_PRESET: Record<string, string> = {
-  skyHalo: "#FFE6A7",
-  mugBody: "#D97736",
-  mugHandle: "#C0392B",
-  chocolateDrip: "#7F4F24",
-  marshmallows: "#FBF3E8",
-  cinnamonStick: "#9C6644",
-  leafLeft: "#277455",
-  leafRight: "#F4A261",
-  saucer: "#3AAFA9",
-  heartCenter: "#E06D8C",
+const MAGIC_PRESETS: Record<DrawingTemplateId, Record<string, string>> = {
+  mug: {
+    skyHalo: "#FFE6A7",
+    zone1: "#277455",
+    zone2: "#F4A261",
+    zone3: "#3AAFA9",
+    zone4: "#C0392B",
+    zone5: "#9C6644",
+    zone6: "#FBF3E8",
+    zone7: "#D97736",
+    zone8: "#9C6644",
+    zone9: "#E06D8C",
+  },
+  capybara: {
+    skyHalo: "#FFE6A7",
+    zone1: "#277455",
+    zone2: "#9C6644",
+    zone3: "#9C6644",
+    zone4: "#D97736",
+    zone5: "#C0392B",
+    zone6: "#FBF3E8",
+    zone7: "#C0392B",
+    zone8: "#F4A261",
+    zone9: "#E06D8C",
+  },
+  axolotl: {
+    skyHalo: "#DEF2F1",
+    zone1: "#E06D8C",
+    zone2: "#E06D8C",
+    zone3: "#FFB5C2",
+    zone4: "#FFB5C2",
+    zone5: "#3AAFA9",
+    zone6: "#F4A261",
+    zone7: "#C0392B",
+    zone8: "#FFE6A7",
+    zone9: "#277455",
+  },
 };
+
+const TEMPLATES: {
+  id: DrawingTemplateId;
+  label: string;
+  emoji: string;
+  bookId: string;
+}[] = [
+  {
+    id: "mug",
+    label: "Tasse d'Automne",
+    emoji: "☕",
+    bookId: "automne-cozy",
+  },
+  {
+    id: "capybara",
+    label: "Capybara de Noël",
+    emoji: "🎅",
+    bookId: "noel-capybaras",
+  },
+  {
+    id: "axolotl",
+    label: "Axolotl Kawaii",
+    emoji: "🌸",
+    bookId: "noel-axolotls",
+  },
+];
 
 export default function InteractiveColoringStudio() {
+  const [templateId, setTemplateId] = useState<DrawingTemplateId>("mug");
   const [selectedColor, setSelectedColor] = useState(MARKER_PALETTE[0]!.hex);
   const [zones, setZones] = useState<Record<string, string>>(INITIAL_ZONES);
   const [coloredCount, setColoredCount] = useState(0);
   const [lastColoredZone, setLastColoredZone] = useState<string | null>(null);
+  const [sparkleMode, setSparkleMode] = useState(false);
+
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   // Interactive Before / After Reveal Slider state
-  const [activeBook, setActiveBook] = useState<Book>(BOOKS[0]!);
+  const studioBooks = BOOKS.filter((b) => !b.classicCoverOnly);
+  const [activeBook, setActiveBook] = useState<Book>(studioBooks[0]!);
   const [sliderPos, setSliderPos] = useState(52);
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const isDraggingRef = useRef(false);
@@ -107,13 +167,26 @@ export default function InteractiveColoringStudio() {
     });
   };
 
+  const handleTemplateSwitch = (nextId: DrawingTemplateId) => {
+    setTemplateId(nextId);
+    setZones(INITIAL_ZONES);
+    setColoredCount(0);
+    setLastColoredZone(null);
+    const tpl = TEMPLATES.find((t) => t.id === nextId);
+    if (tpl) {
+      const matched = studioBooks.find((b) => b.id === tpl.bookId);
+      if (matched) setActiveBook(matched);
+    }
+  };
+
   const handleMagicFill = () => {
-    const keys = Object.keys(MAGIC_PRESET);
+    const preset = MAGIC_PRESETS[templateId];
+    const keys = Object.keys(preset);
     keys.forEach((k, idx) => {
       setTimeout(() => {
         playBrushSound(550 + idx * 55);
         setLastColoredZone(k);
-        setZones((prev) => ({ ...prev, [k]: MAGIC_PRESET[k]! }));
+        setZones((prev) => ({ ...prev, [k]: preset[k]! }));
       }, idx * 85);
     });
     setColoredCount(keys.length);
@@ -126,6 +199,54 @@ export default function InteractiveColoringStudio() {
     setLastColoredZone(null);
   };
 
+  // Export the colored SVG as a Polaroid Souvenir PNG
+  const handleExportPostcard = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const svgBlob = new Blob([svgData], {
+      type: "image/svg+xml;charset=utf-8",
+    });
+    const url = URL.createObjectURL(svgBlob);
+    const img = new window.Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 900;
+      canvas.height = 1040;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      // Warm Polaroid Card Background
+      ctx.fillStyle = "#FBF3E8";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Inner White Drawing Frame
+      ctx.fillStyle = "#FFFDF9";
+      ctx.strokeStyle = "#23140D";
+      ctx.lineWidth = 6;
+      ctx.fillRect(50, 50, 800, 800);
+      ctx.strokeRect(50, 50, 800, 800);
+
+      ctx.drawImage(img, 50, 50, 800, 800);
+
+      // Signature Text at Bottom
+      ctx.fillStyle = "#23140D";
+      ctx.font = "bold 32px Georgia, serif";
+      ctx.textAlign = "center";
+      ctx.fillText("Colorié dans l'Atelier CaroTine ❤️", 450, 925);
+
+      ctx.fillStyle = "#8C583A";
+      ctx.font = "20px sans-serif";
+      ctx.fillText("Collection Officielle Bold & Easy • Amazon KDP", 450, 968);
+
+      URL.revokeObjectURL(url);
+      const a = document.createElement("a");
+      a.download = `mon-coloriage-carotine-${templateId}.png`;
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    };
+    img.src = url;
+  };
+
   const updateSliderFromClientX = (clientX: number) => {
     if (!sliderRef.current) return;
     const rect = sliderRef.current.getBoundingClientRect();
@@ -134,14 +255,19 @@ export default function InteractiveColoringStudio() {
   };
 
   return (
-    <section className="py-20 md:py-28 relative border-t border-espresso-900/10 overflow-hidden">
+    <section
+      id="atelier-interactif"
+      className="py-20 md:py-28 relative border-t border-espresso-900/10 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.22em] text-espresso-800/70">
               <Palette className="w-3.5 h-3.5 text-autumn-saffron" />
-              <span>Expérience Interactive • Testez l&apos;Effet Bold &amp; Easy</span>
+              <span>
+                Expérience Interactive • Testez l&apos;Effet Bold &amp; Easy
+              </span>
             </div>
             <h2 className="mt-3 font-serif text-3xl sm:text-5xl font-normal text-espresso-900 tracking-tight leading-[1.06]">
               Essayez le plaisir du{" "}
@@ -153,9 +279,9 @@ export default function InteractiveColoringStudio() {
           </div>
 
           <p className="text-sm sm:text-base text-espresso-800/80 max-w-md leading-relaxed">
-            Choisissez un crayon ou un feutre ci-dessous et touchez le dessin
-            pour le colorier, ou glissez le révélateur Avant / Après sur nos
-            albums officiels.
+            Choisissez votre planche et vos couleurs ci-dessous pour colorier en
+            direct, puis téléchargez votre carte souvenir ou glissez le
+            révélateur Avant / Après.
           </p>
         </div>
 
@@ -163,18 +289,45 @@ export default function InteractiveColoringStudio() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* LEFT COLUMN (7 cols): Live Tap-to-Color Bold & Easy Canvas */}
           <div className="lg:col-span-7 rounded-[32px] bg-[#FBF3E8]/90 backdrop-blur-md border border-[#8C583A]/20 shadow-[0_20px_50px_-15px_rgba(92,50,22,0.14)] p-5 sm:p-7 flex flex-col justify-between">
-            {/* Top Studio Toolbar */}
+            {/* Top Studio Toolbar: 3 Drawing Templates + Magic Actions */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-espresso-900/10">
-              <div className="flex items-center gap-2.5">
-                <span className="px-3 py-1 rounded-full bg-autumn-saffron text-white text-[11px] font-bold uppercase tracking-wider">
-                  Atelier Interactif
-                </span>
-                <span className="text-xs sm:text-sm font-serif font-bold text-espresso-900">
-                  Touchez une zone pour la colorier !
-                </span>
+              {/* 3 Template Switcher Pills */}
+              <div className="flex flex-wrap items-center gap-1.5">
+                {TEMPLATES.map((tpl) => {
+                  const isActive = tpl.id === templateId;
+                  return (
+                    <button
+                      key={tpl.id}
+                      type="button"
+                      onClick={() => handleTemplateSwitch(tpl.id)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
+                        isActive
+                          ? "bg-espresso-900 text-linen-50 shadow-sm"
+                          : "bg-white/80 hover:bg-white text-espresso-800 border border-espresso-900/10"
+                      }`}
+                    >
+                      <span>{tpl.emoji}</span>
+                      <span>{tpl.label}</span>
+                    </button>
+                  );
+                })}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setSparkleMode((v) => !v)}
+                  title="Activer ou désactiver l'effet Paillettes Dorées"
+                  className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
+                    sparkleMode
+                      ? "bg-amber-400 text-espresso-900 border-amber-300 shadow-sm"
+                      : "bg-white/80 text-espresso-800 border-espresso-900/10 hover:bg-white"
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Paillettes</span>
+                </button>
+
                 <motion.button
                   type="button"
                   onClick={handleMagicFill}
@@ -187,6 +340,15 @@ export default function InteractiveColoringStudio() {
 
                 <button
                   type="button"
+                  onClick={handleExportPostcard}
+                  title="Télécharger mon coloriage en souvenir (PNG)"
+                  className="p-2 rounded-full bg-white hover:bg-espresso-900 text-espresso-900 hover:text-linen-50 border border-espresso-900/10 transition-colors shadow-sm"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                </button>
+
+                <button
+                  type="button"
                   onClick={handleReset}
                   title="Effacer et recommencer"
                   className="p-2 rounded-full bg-linen-200/80 hover:bg-linen-300/80 text-espresso-900 transition-colors"
@@ -196,16 +358,17 @@ export default function InteractiveColoringStudio() {
               </div>
             </div>
 
-            {/* Interactive SVG Coloring Sheet (Bold & Easy Cozy Mug + Leaves + Heart) */}
+            {/* Interactive SVG Coloring Sheet */}
             <div
               data-cursor="paint"
               className="relative my-5 mx-auto w-full max-w-[420px] aspect-square rounded-[24px] bg-[#FFFDF9] border-4 border-espresso-900/85 shadow-inner flex items-center justify-center p-4 select-none overflow-hidden"
             >
               <svg
+                ref={svgRef}
                 viewBox="0 0 400 400"
                 className="w-full h-full cursor-pointer"
               >
-                {/* 1. Background Sunburst / Halo Circle */}
+                {/* Shared Background Halo Circle */}
                 <motion.circle
                   cx="200"
                   cy="200"
@@ -218,122 +381,397 @@ export default function InteractiveColoringStudio() {
                   className="transition-colors duration-300"
                 />
 
-                {/* 2. Left Autumn Leaf */}
-                <motion.path
-                  d="M 56 175 C 32 135 72 95 104 128 C 115 142 102 175 78 188 Z"
-                  fill={zones.leafLeft}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("leafLeft")}
-                  className="transition-colors duration-300"
-                />
-                <path
-                  d="M 65 168 L 92 135"
-                  stroke="#17120F"
-                  strokeWidth="4.5"
-                  strokeLinecap="round"
-                  pointerEvents="none"
-                />
+                {templateId === "mug" && (
+                  <>
+                    {/* Left Autumn Leaf */}
+                    <motion.path
+                      d="M 56 175 C 32 135 72 95 104 128 C 115 142 102 175 78 188 Z"
+                      fill={zones.zone1}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone1")}
+                      className="transition-colors duration-300"
+                    />
+                    <path
+                      d="M 65 168 L 92 135"
+                      stroke="#17120F"
+                      strokeWidth="4.5"
+                      strokeLinecap="round"
+                      pointerEvents="none"
+                    />
 
-                {/* 3. Right Autumn Leaf */}
-                <motion.path
-                  d="M 340 165 C 365 128 325 88 295 120 C 284 134 296 168 320 180 Z"
-                  fill={zones.leafRight}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("leafRight")}
-                  className="transition-colors duration-300"
-                />
-                <path
-                  d="M 332 158 L 306 126"
-                  stroke="#17120F"
-                  strokeWidth="4.5"
-                  strokeLinecap="round"
-                  pointerEvents="none"
-                />
+                    {/* Right Autumn Leaf */}
+                    <motion.path
+                      d="M 340 165 C 365 128 325 88 295 120 C 284 134 296 168 320 180 Z"
+                      fill={zones.zone2}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone2")}
+                      className="transition-colors duration-300"
+                    />
+                    <path
+                      d="M 332 158 L 306 126"
+                      stroke="#17120F"
+                      strokeWidth="4.5"
+                      strokeLinecap="round"
+                      pointerEvents="none"
+                    />
 
-                {/* 4. Cozy Saucer Plate */}
-                <motion.ellipse
-                  cx="195"
-                  cy="318"
-                  rx="112"
-                  ry="22"
-                  fill={zones.saucer}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  onClick={() => handleZoneClick("saucer")}
-                  className="transition-colors duration-300"
-                />
+                    {/* Saucer */}
+                    <motion.ellipse
+                      cx="195"
+                      cy="318"
+                      rx="112"
+                      ry="22"
+                      fill={zones.zone3}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone3")}
+                      className="transition-colors duration-300"
+                    />
 
-                {/* 5. Mug Handle */}
-                <motion.path
-                  d="M 272 188 C 330 188 330 278 272 278 L 265 256 C 300 256 300 210 265 210 Z"
-                  fill={zones.mugHandle}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("mugHandle")}
-                  className="transition-colors duration-300"
-                />
+                    {/* Mug Handle */}
+                    <motion.path
+                      d="M 272 188 C 330 188 330 278 272 278 L 265 256 C 300 256 300 210 265 210 Z"
+                      fill={zones.zone4}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone4")}
+                      className="transition-colors duration-300"
+                    />
 
-                {/* 6. Cinnamon Stick */}
-                <motion.path
-                  d="M 225 130 L 254 76 L 274 86 L 245 140 Z"
-                  fill={zones.cinnamonStick}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("cinnamonStick")}
-                  className="transition-colors duration-300"
-                />
+                    {/* Cinnamon Stick */}
+                    <motion.path
+                      d="M 225 130 L 254 76 L 274 86 L 245 140 Z"
+                      fill={zones.zone5}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone5")}
+                      className="transition-colors duration-300"
+                    />
 
-                {/* 7. Fluffy Marshmallows Top */}
-                <motion.path
-                  d="M 116 152 C 110 122 145 110 165 124 C 178 102 215 104 226 126 C 250 114 278 130 272 156 Z"
-                  fill={zones.marshmallows}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("marshmallows")}
-                  className="transition-colors duration-300"
-                />
+                    {/* Marshmallows */}
+                    <motion.path
+                      d="M 116 152 C 110 122 145 110 165 124 C 178 102 215 104 226 126 C 250 114 278 130 272 156 Z"
+                      fill={zones.zone6}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone6")}
+                      className="transition-colors duration-300"
+                    />
 
-                {/* 8. Mug Main Body */}
-                <motion.path
-                  d="M 112 155 L 276 155 L 266 286 C 262 310 232 320 194 320 C 156 320 126 310 122 286 Z"
-                  fill={zones.mugBody}
-                  stroke="#17120F"
-                  strokeWidth="6.5"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("mugBody")}
-                  className="transition-colors duration-300"
-                />
+                    {/* Mug Body */}
+                    <motion.path
+                      d="M 112 155 L 276 155 L 266 286 C 262 310 232 320 194 320 C 156 320 126 310 122 286 Z"
+                      fill={zones.zone7}
+                      stroke="#17120F"
+                      strokeWidth="6.5"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone7")}
+                      className="transition-colors duration-300"
+                    />
 
-                {/* 9. Melted Hot Chocolate Drip Rim */}
-                <motion.path
-                  d="M 112 155 L 276 155 L 274 178 C 258 178 256 205 242 205 C 228 205 228 178 212 178 C 198 178 196 218 180 218 C 164 218 164 180 148 180 C 134 180 132 200 116 196 Z"
-                  fill={zones.chocolateDrip}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("chocolateDrip")}
-                  className="transition-colors duration-300"
-                />
+                    {/* Chocolate Drip */}
+                    <motion.path
+                      d="M 112 155 L 276 155 L 274 178 C 258 178 256 205 242 205 C 228 205 228 178 212 178 C 198 178 196 218 180 218 C 164 218 164 180 148 180 C 134 180 132 200 116 196 Z"
+                      fill={zones.zone8}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone8")}
+                      className="transition-colors duration-300"
+                    />
 
-                {/* 10. Cute Center Heart on Mug */}
-                <motion.path
-                  d="M 194 276 C 194 276 156 252 156 230 C 156 215 174 208 194 226 C 214 208 232 215 232 230 C 232 252 194 276 194 276 Z"
-                  fill={zones.heartCenter}
-                  stroke="#17120F"
-                  strokeWidth="6"
-                  strokeLinejoin="round"
-                  onClick={() => handleZoneClick("heartCenter")}
-                  className="transition-colors duration-300"
-                />
+                    {/* Heart on Mug */}
+                    <motion.path
+                      d="M 194 276 C 194 276 156 252 156 230 C 156 215 174 208 194 226 C 214 208 232 215 232 230 C 232 252 194 276 194 276 Z"
+                      fill={zones.zone9}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone9")}
+                      className="transition-colors duration-300"
+                    />
+                  </>
+                )}
+
+                {templateId === "capybara" && (
+                  <>
+                    {/* Background Pine Tree Left */}
+                    <motion.path
+                      d="M 85 130 L 45 230 L 125 230 Z"
+                      fill={zones.zone1}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone1")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Capybara Body */}
+                    <motion.path
+                      d="M 120 220 C 110 295 130 330 205 330 C 275 330 290 295 278 220 Z"
+                      fill={zones.zone2}
+                      stroke="#17120F"
+                      strokeWidth="6.5"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone2")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Capybara Head */}
+                    <motion.path
+                      d="M 132 145 C 125 145 118 215 150 220 L 252 220 C 285 215 280 150 245 145 Z"
+                      fill={zones.zone3}
+                      stroke="#17120F"
+                      strokeWidth="6.5"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone3")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Snout Patch */}
+                    <motion.ellipse
+                      cx="235"
+                      cy="182"
+                      rx="32"
+                      ry="24"
+                      fill={zones.zone4}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone4")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Cute Closed Eye & Nose */}
+                    <path
+                      d="M 168 175 Q 178 166 188 175 M 232 174 L 242 174 M 237 174 L 237 188"
+                      stroke="#17120F"
+                      strokeWidth="5.5"
+                      strokeLinecap="round"
+                      fill="none"
+                      pointerEvents="none"
+                    />
+                    {/* Santa Hat Red Cone */}
+                    <motion.path
+                      d="M 142 142 C 155 75 235 75 268 128 L 240 142 Z"
+                      fill={zones.zone5}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone5")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Santa Hat White Trim + Pompom */}
+                    <motion.path
+                      d="M 134 136 L 252 136 C 262 136 262 154 252 154 L 134 154 C 124 154 124 136 134 136 Z"
+                      fill={zones.zone6}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone6")}
+                      className="transition-colors duration-300"
+                    />
+                    <motion.circle
+                      cx="275"
+                      cy="128"
+                      r="16"
+                      fill={zones.zone6}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone6")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Cozy Winter Scarf */}
+                    <motion.path
+                      d="M 135 212 L 265 212 C 272 212 272 236 262 236 L 138 236 C 128 236 128 212 135 212 Z"
+                      fill={zones.zone7}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone7")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Christmas Gift Box */}
+                    <motion.rect
+                      x="255"
+                      y="255"
+                      width="68"
+                      height="68"
+                      rx="10"
+                      fill={zones.zone8}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone8")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Gift Ribbon Heart */}
+                    <motion.circle
+                      cx="289"
+                      cy="289"
+                      r="16"
+                      fill={zones.zone9}
+                      stroke="#17120F"
+                      strokeWidth="5.5"
+                      onClick={() => handleZoneClick("zone9")}
+                      className="transition-colors duration-300"
+                    />
+                  </>
+                )}
+
+                {templateId === "axolotl" && (
+                  <>
+                    {/* Left Gill Fronds */}
+                    <motion.path
+                      d="M 118 165 C 72 140 68 175 112 182 C 66 185 72 215 118 202 Z"
+                      fill={zones.zone1}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone1")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Right Gill Fronds */}
+                    <motion.path
+                      d="M 282 165 C 328 140 332 175 288 182 C 334 185 328 215 282 202 Z"
+                      fill={zones.zone2}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone2")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Axolotl Tail */}
+                    <motion.path
+                      d="M 250 285 C 325 275 342 315 268 322 Z"
+                      fill={zones.zone5}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone5")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Axolotl Body */}
+                    <motion.path
+                      d="M 142 222 C 132 295 148 332 200 332 C 252 332 268 295 258 222 Z"
+                      fill={zones.zone3}
+                      stroke="#17120F"
+                      strokeWidth="6.5"
+                      strokeLinejoin="round"
+                      onClick={() => handleZoneClick("zone3")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Axolotl Round Head */}
+                    <motion.ellipse
+                      cx="200"
+                      cy="182"
+                      rx="82"
+                      ry="62"
+                      fill={zones.zone4}
+                      stroke="#17120F"
+                      strokeWidth="6.5"
+                      onClick={() => handleZoneClick("zone4")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Cute Eyes & Kawaii Smile */}
+                    <circle
+                      cx="166"
+                      cy="176"
+                      r="7"
+                      fill="#17120F"
+                      pointerEvents="none"
+                    />
+                    <circle
+                      cx="234"
+                      cy="176"
+                      r="7"
+                      fill="#17120F"
+                      pointerEvents="none"
+                    />
+                    <path
+                      d="M 186 192 Q 200 205 214 192"
+                      stroke="#17120F"
+                      strokeWidth="5.5"
+                      strokeLinecap="round"
+                      fill="none"
+                      pointerEvents="none"
+                    />
+                    {/* Belly Patch */}
+                    <motion.ellipse
+                      cx="200"
+                      cy="282"
+                      rx="36"
+                      ry="32"
+                      fill={zones.zone8}
+                      stroke="#17120F"
+                      strokeWidth="5.5"
+                      onClick={() => handleZoneClick("zone8")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Floating Star */}
+                    <motion.circle
+                      cx="198"
+                      cy="95"
+                      r="22"
+                      fill={zones.zone6}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone6")}
+                      className="transition-colors duration-300"
+                    />
+                    {/* Left & Right Ocean Bubbles / Shells */}
+                    <motion.circle
+                      cx="95"
+                      cy="275"
+                      r="20"
+                      fill={zones.zone7}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone7")}
+                      className="transition-colors duration-300"
+                    />
+                    <motion.circle
+                      cx="312"
+                      cy="118"
+                      r="18"
+                      fill={zones.zone9}
+                      stroke="#17120F"
+                      strokeWidth="6"
+                      onClick={() => handleZoneClick("zone9")}
+                      className="transition-colors duration-300"
+                    />
+                  </>
+                )}
+
+                {/* Golden Glitter Overlay when Sparkle Mode is active */}
+                {sparkleMode && (
+                  <g pointerEvents="none">
+                    {[
+                      { x: 110, y: 95 },
+                      { x: 295, y: 88 },
+                      { x: 85, y: 245 },
+                      { x: 315, y: 245 },
+                      { x: 200, y: 155 },
+                      { x: 155, y: 295 },
+                      { x: 255, y: 295 },
+                    ].map((pt, i) => (
+                      <path
+                        key={i}
+                        d={`M ${pt.x} ${pt.y - 9} L ${pt.x + 3} ${pt.y - 3} L ${
+                          pt.x + 9
+                        } ${pt.y} L ${pt.x + 3} ${pt.y + 3} L ${pt.x} ${
+                          pt.y + 9
+                        } L ${pt.x - 3} ${pt.y + 3} L ${pt.x - 9} ${pt.y} L ${
+                          pt.x - 3
+                        } ${pt.y - 3} Z`}
+                        fill="#FFD166"
+                        stroke="#B85923"
+                        strokeWidth="1.2"
+                      />
+                    ))}
+                  </g>
+                )}
               </svg>
 
               {/* Subtle Bottom Watermark */}
@@ -358,15 +796,26 @@ export default function InteractiveColoringStudio() {
               </AnimatePresence>
             </div>
 
-            {/* Crayons & Feutres Color Picker Bar */}
+            {/* Crayons & Feutres Color Picker Bar + Souvenir Download */}
             <div>
-              <div className="flex items-center justify-between text-xs font-semibold text-espresso-800/75 mb-2.5">
-                <span>Choisissez votre crayon ou feutre :</span>
-                <span className="font-bold text-espresso-900">
-                  {
-                    MARKER_PALETTE.find((m) => m.hex === selectedColor)?.name
-                  }
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-espresso-800/75 mb-2.5">
+                <span>
+                  Choisissez votre crayon ou feutre (
+                  <strong className="text-espresso-900">
+                    {
+                      MARKER_PALETTE.find((m) => m.hex === selectedColor)?.name
+                    }
+                  </strong>
+                  ) :
                 </span>
+                <button
+                  type="button"
+                  onClick={handleExportPostcard}
+                  className="inline-flex items-center gap-1.5 text-autumn-saffron hover:text-espresso-900 font-bold underline"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Garder mon coloriage en souvenir</span>
+                </button>
               </div>
 
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
@@ -482,7 +931,7 @@ export default function InteractiveColoringStudio() {
 
               {/* Book Selector Pills for the Before/After Slider */}
               <div className="mt-4 flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-                {BOOKS.map((b) => {
+                {studioBooks.map((b) => {
                   const isCurrent = b.id === activeBook.id;
                   return (
                     <button
@@ -509,7 +958,7 @@ export default function InteractiveColoringStudio() {
                   {activeBook.title}
                 </span>
                 <span className="font-bold text-emerald-800 shrink-0">
-                  7,99 € • Prime
+                  Disponible en Prime
                 </span>
               </div>
 

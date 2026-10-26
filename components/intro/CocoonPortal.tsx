@@ -136,13 +136,16 @@ export function detectCalendarSeason(date = new Date()): {
   return { season, formattedDate };
 }
 
+const PORTAL_BOOKS = BOOKS.filter((b) => !b.excludeFromPortal);
+
 const FAN_LAYOUT = [
-  { offset: -2.5, x: -225, y: 34, rotate: -19, scale: 0.84, z: 10 },
-  { offset: -1.5, x: -135, y: 14, rotate: -11, scale: 0.9, z: 20 },
-  { offset: -0.5, x: -45, y: -4, rotate: -3.5, scale: 0.98, z: 35 },
-  { offset: 0.5, x: 45, y: -4, rotate: 3.5, scale: 0.98, z: 35 },
-  { offset: 1.5, x: 135, y: 14, rotate: 11, scale: 0.9, z: 20 },
-  { offset: 2.5, x: 225, y: 34, rotate: 19, scale: 0.84, z: 10 },
+  { offset: -3, x: -255, y: 44, rotate: -21, scale: 0.8, z: 10 },
+  { offset: -2, x: -170, y: 22, rotate: -14, scale: 0.87, z: 20 },
+  { offset: -1, x: -85, y: 6, rotate: -7, scale: 0.94, z: 30 },
+  { offset: 0, x: 0, y: -6, rotate: 0, scale: 1, z: 40 },
+  { offset: 1, x: 85, y: 6, rotate: 7, scale: 0.94, z: 30 },
+  { offset: 2, x: 170, y: 22, rotate: 14, scale: 0.87, z: 20 },
+  { offset: 3, x: 255, y: 44, rotate: 21, scale: 0.8, z: 10 },
 ];
 
 interface Particle {
@@ -169,7 +172,7 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
   const [portalSeason, setPortalSeason] = useState<CalendarSeason>("automne");
   const [isManualOverride, setIsManualOverride] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
-  const [hoveredIdx, setHoveredIdx] = useState<number>(2);
+  const [hoveredIdx, setHoveredIdx] = useState<number>(3);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const pointerPosRef = useRef<{ x: number; y: number }>({ x: -999, y: -999 });
@@ -194,14 +197,14 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
 
   const seasonCfg = SEASON_CONFIGS[portalSeason];
 
-  // Arrange the 6 books so that the books matching the current season sit right in the center slots (indices 2 and 3)
+  // Arrange the 7 portal books (excluding vacances-clem) so seasonal books sit in the center slots
   const orderedBooks = useMemo(() => {
     const targetCat = seasonCfg.mappedBookCategory;
-    const priority = BOOKS.filter((b) => b.category === targetCat);
-    const rest = BOOKS.filter((b) => b.category !== targetCat);
+    const priority = PORTAL_BOOKS.filter((b) => b.category === targetCat);
+    const rest = PORTAL_BOOKS.filter((b) => b.category !== targetCat);
 
     if (priority.length === 2) {
-      // Automne (2 books): place the 2 Automne books in the center (slots 2 & 3), flanked by 2 books on each side
+      // Automne (2 books): center slots 2 & 3, with Maisons Enchantées discreetly on the outer wing
       return [
         rest[0]!,
         rest[1]!,
@@ -209,33 +212,38 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
         priority[1]!,
         rest[2]!,
         rest[3]!,
+        rest[4]!,
       ].filter(Boolean);
     }
     if (priority.length === 3) {
-      // Noël (3 books): place the 3 Noël books in the middle (slots 1, 2, 3)
+      // Noël (3 books): center slots 2, 3, 4
       return [
         rest[0]!,
+        rest[1]!,
         priority[0]!,
         priority[1]!,
         priority[2]!,
-        rest[1]!,
         rest[2]!,
+        rest[3]!,
       ].filter(Boolean);
     }
-    // Classique / Lolo & Lili (1 book): place it in center slot 2
+    // Classique / Océan & Évasion (2 portal books: Lolo & Lili in center slot 3, Maisons Enchantées discreetly alongside)
+    const lolo = priority.find((b) => b.id === "lolo-et-lili") ?? priority[0]!;
+    const maisons = priority.find((b) => b.id === "maisons-enchantees");
     return [
       rest[0]!,
       rest[1]!,
-      priority[0] ?? BOOKS[0]!,
       rest[2]!,
+      lolo,
+      maisons ?? rest[3]!,
       rest[3]!,
       rest[4]!,
     ].filter(Boolean);
   }, [seasonCfg.mappedBookCategory]);
 
-  // Reset hovered book to center slot (2) when switching season
+  // Reset hovered book to center slot (3) when switching season
   useEffect(() => {
-    setHoveredIdx(2);
+    setHoveredIdx(3);
   }, [portalSeason]);
 
   // Interactive 60fps Seasonal Canvas Physics (Autumn Leaves / Winter Snowflakes / Spring Petals / Summer Bubbles)

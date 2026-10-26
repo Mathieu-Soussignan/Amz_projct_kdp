@@ -22,16 +22,16 @@ export default function EditorialFooter() {
               <span>ne</span>
             </h3>
             <p className="text-xs sm:text-sm text-linen-200/70 max-w-md leading-relaxed">
-              Six albums de coloriage Bold &amp; Easy imaginés pour offrir des
+              Huit albums de coloriage imaginés par CaroTine pour offrir des
               moments de calme, de douceur et de créativité aux feutres ou aux
               crayons, expédiés directement par Amazon.
             </p>
           </div>
 
-          {/* Direct Links to All 6 Official Books on Amazon */}
+          {/* Direct Links to All 8 Official Books on Amazon */}
           <div className="lg:col-span-7">
             <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-linen-200/60 mb-4">
-              Accès Direct aux 6 Éditions sur Amazon
+              Accès Direct aux 8 Éditions sur Amazon
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {BOOKS.map((book) => (

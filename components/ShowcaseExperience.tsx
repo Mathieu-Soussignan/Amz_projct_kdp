@@ -7,11 +7,13 @@ import CocoonPortal, {
   detectCalendarSeason,
 } from "@/components/intro/CocoonPortal";
 import CocoonAtmosphere from "@/components/ui/CocoonAtmosphere";
+import CocoonAmbienceBar from "@/components/ui/CocoonAmbienceBar";
 import CustomCursor from "@/components/ui/CustomCursor";
 import EditorialHeader from "@/components/ui/EditorialHeader";
 import HeroVisual from "@/components/hero/HeroVisual";
 import BookGrid from "@/components/catalog/BookGrid";
 import InteractiveColoringStudio from "@/components/studio/InteractiveColoringStudio";
+import GiftBundleBuilder from "@/components/gift/GiftBundleBuilder";
 import CommunityLoveWall from "@/components/social/CommunityLoveWall";
 import FlipbookModal from "@/components/preview/FlipbookModal";
 import DuoStory from "@/components/story/DuoStory";
@@ -22,6 +24,7 @@ export default function ShowcaseExperience() {
   const [portalOpen, setPortalOpen] = useState(true);
   const [activeSeason, setActiveSeason] = useState<BookCategory>("automne");
   const [flipbookBook, setFlipbookBook] = useState<Book | null>(null);
+  const [candlelightMode, setCandlelightMode] = useState(false);
 
   // Automatically sync initial season with the visitor's real calendar date
   useEffect(() => {
@@ -81,6 +84,8 @@ export default function ShowcaseExperience() {
           onSeasonChange={setActiveSeason}
           onOpenFeaturedFlipbook={handleOpenFeaturedFlipbook}
           onReplayIntro={() => setPortalOpen(true)}
+          candlelightMode={candlelightMode}
+          onToggleCandlelight={() => setCandlelightMode((v) => !v)}
         />
 
         {/* Main Content */}
@@ -102,18 +107,27 @@ export default function ShowcaseExperience() {
           {/* 3. Interactive "Try Before You Buy" Coloring Studio & Line-Art X-Ray Slider */}
           <InteractiveColoringStudio />
 
-          {/* 4. Kinetic Ribbon + 1-Click Mood Matcher Quiz + Verified Reader Love Wall */}
+          {/* 4. Interactive 3D Gift Bundle Builder (Duo / Trio Cocooning) */}
+          <GiftBundleBuilder />
+
+          {/* 5. Kinetic Ribbon + 1-Click Mood Matcher Quiz + Verified Reader Love Wall */}
           <CommunityLoveWall
             onOpenFlipbook={(book) => setFlipbookBook(book)}
           />
 
-          {/* 5. CaroTine Story + 9:16 TikTok Smartphone Mockup */}
+          {/* 6. CaroTine Story + Wax-Sealed Creator Postcard + 9:16 TikTok Smartphone Mockup */}
           <DuoStory />
         </main>
 
-        {/* Editorial Footer with All 6 Direct Amazon Links */}
+        {/* Editorial Footer with All 8 Direct Amazon Links */}
         <EditorialFooter />
       </motion.div>
+
+      {/* Floating Vinyl Radio & Candlelight Evening Controller */}
+      <CocoonAmbienceBar
+        candlelightMode={candlelightMode}
+        onToggleCandlelight={() => setCandlelightMode((v) => !v)}
+      />
 
       {/* Mobile-Only Sticky Quick-Cart Bar (Appears after scrolling past Hero) */}
       <StickyQuickCart

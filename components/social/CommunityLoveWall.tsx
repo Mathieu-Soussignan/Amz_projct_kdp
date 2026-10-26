@@ -32,10 +32,14 @@ const MOOD_OPTIONS: MoodOption[] = [
     id: "plaid",
     emoji: "☕",
     label: "Décompresser le soir sous un plaid",
-    subtitle: "Zéro charge mentale, motifs douillets & boissons chaudes",
-    recommendedIds: ["automne-cozy", "petits-animaux-automne"],
+    subtitle: "Zéro charge mentale, motifs douillets & univers féeriques",
+    recommendedIds: [
+      "automne-cozy",
+      "petits-animaux-automne",
+      "maisons-enchantees",
+    ],
     reason:
-      "Idéal pour lâcher son téléphone 20 minutes avant de dormir : des tasses fumantes, des viennoiseries et des petits animaux de la forêt aux contours ultra-épais.",
+      "Idéal pour lâcher son téléphone le soir : des tasses fumantes, des petits animaux de la forêt ou des maisons enchantées au cœur des bois pour s'évader au calme.",
   },
   {
     id: "noel",

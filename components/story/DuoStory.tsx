@@ -58,6 +58,7 @@ const TIKTOK_CLIPS = [
 export default function DuoStory() {
   const [activeClipIdx, setActiveClipIdx] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [letterOpened, setLetterOpened] = useState(false);
 
   const activeClip = TIKTOK_CLIPS[activeClipIdx] ?? TIKTOK_CLIPS[0];
 
@@ -149,30 +150,88 @@ export default function DuoStory() {
               </div>
             </div>
 
-            {/* Duo Signature Card */}
-            <div className="p-5 sm:p-6 rounded-3xl bg-espresso-900 text-linen-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
-              <div className="flex items-center gap-3.5">
-                <span className="w-11 h-11 rounded-full bg-autumn-saffron text-white font-serif font-bold flex items-center justify-center border-2 border-amber-200/30 text-sm shrink-0">
-                  CT
-                </span>
-                <div>
-                  <p className="font-serif italic text-base sm:text-lg text-amber-200">
-                    « Colorier 15 minutes sous un plaid, c’est notre rituel
-                    anti-écran préféré. »
-                  </p>
-                  <span className="text-xs text-linen-200/75">
-                    CaroTine — Collection Officielle Amazon KDP
-                  </span>
-                </div>
-              </div>
+            {/* Interactive Wax-Sealed Creator Postcard ("Cachet de Cire CT") */}
+            <div className="relative">
+              <AnimatePresence mode="wait">
+                {!letterOpened ? (
+                  <motion.button
+                    key="sealed-envelope"
+                    type="button"
+                    onClick={() => setLetterOpened(true)}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full p-5 sm:p-6 rounded-3xl bg-espresso-900 text-linen-50 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl border border-amber-300/25 text-left group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      {/* 3D Red/Gold Wax Seal Button */}
+                      <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#C0392B] via-[#96281B] to-[#6E1B11] border-2 border-amber-300/60 shadow-[0_6px_20px_rgba(192,57,43,0.65)] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <div className="w-10 h-10 rounded-full border border-dashed border-amber-200/60 flex items-center justify-center">
+                          <span className="font-serif italic font-bold text-amber-200 text-sm">
+                            CT
+                          </span>
+                        </div>
+                      </div>
+                      <div>
+                        <span className="inline-block text-[10px] font-mono uppercase tracking-[0.2em] text-amber-300 mb-1">
+                          Enveloppe Cachetée • Secret d&apos;Atelier
+                        </span>
+                        <p className="font-serif italic text-base sm:text-lg text-linen-50">
+                          Un petit mot personnel vous attend à l&apos;intérieur…
+                        </p>
+                      </div>
+                    </div>
 
-              <a
-                href="#catalogue"
-                className="shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-linen-50 transition-colors"
-              >
-                <span>Voir les 6 livres</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+                    <span className="shrink-0 px-4 py-2 rounded-full bg-amber-400/20 border border-amber-300/35 text-amber-200 text-xs font-bold group-hover:bg-amber-400 group-hover:text-espresso-900 transition-colors">
+                      Briser le cachet 💌
+                    </span>
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key="opened-postcard"
+                    initial={{ opacity: 0, rotateX: -20, y: 12 }}
+                    animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 22 }}
+                    className="relative p-6 sm:p-7 rounded-3xl bg-[#FFFDF9] text-espresso-900 border-2 border-[#D97736]/35 shadow-2xl overflow-hidden"
+                  >
+                    {/* Floating Hearts Burst on Open */}
+                    <div className="pointer-events-none absolute top-3 right-4 flex items-center gap-1.5">
+                      {[0, 1, 2].map((i) => (
+                        <motion.span
+                          key={i}
+                          initial={{ y: 15, opacity: 0, scale: 0.5 }}
+                          animate={{ y: -4, opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.12 }}
+                        >
+                          <Heart className="w-4 h-4 text-[#E06D8C] fill-[#E06D8C]" />
+                        </motion.span>
+                      ))}
+                    </div>
+
+                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-autumn-saffron font-bold">
+                      Carte Postale de l&apos;Atelier CaroTine
+                    </span>
+                    <p className="mt-2 font-serif italic text-base sm:text-lg text-espresso-900 leading-relaxed">
+                      « Merci du fond du cœur d&apos;être ici ! Chaque fois que
+                      vous partagez vos coloriages sur TikTok ou que vous
+                      commandez un de nos carnets pour vos soirées sous le
+                      plaid, vous faites vivre notre aventure entre
+                      belles-sœurs. Prenez soin de vous et bon coloriage ! »
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-espresso-900/10 flex flex-wrap items-center justify-between gap-3">
+                      <span className="font-serif font-bold text-sm text-espresso-900">
+                        Avec toute notre tendresse, CaroTine ❤️
+                      </span>
+                      <a
+                        href="#catalogue"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-espresso-900 text-linen-50 text-xs font-bold hover:bg-espresso-800 transition-colors"
+                      >
+                        <span>Voir les 8 livres</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 

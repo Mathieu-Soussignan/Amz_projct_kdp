@@ -11,6 +11,8 @@ export interface Book {
   coverImage: string;
   interiorPreview: string[];
   accentColor: string; // Teinte d'ambiance pour le glow / backdrop
+  classicCoverOnly?: boolean; // Affiche uniquement la couverture classique + lien Amazon dans le site
+  excludeFromPortal?: boolean; // Exclut le livre de la page d'accueil animée (CocoonPortal)
 }
 
 export const BOOKS: Book[] = [
@@ -107,7 +109,26 @@ export const BOOKS: Book[] = [
     accentColor: "#277455",
   },
 
-  // --- COLLECTION INTEMPORELLE ---
+  // --- COLLECTION INTEMPORELLE & ÉVASION ---
+  {
+    id: "maisons-enchantees",
+    title: "Maisons Enchantées",
+    subtitle: "51 Coloriages uniques et détaillés pour ados et adultes",
+    category: "classique",
+    badge: "Évasion Féerique",
+    features: [
+      "51 Illustrations uniques",
+      "Pour Ados & Adultes",
+      "Pause hors du temps",
+    ],
+    amazonUrl: "https://www.amazon.fr/dp/B0HP82S9GZ",
+    coverImage: "/books/maisons-enchantees.jpg",
+    interiorPreview: [
+      "/books/maisons-enchantees-1.jpg",
+      "/books/maisons-enchantees-2.jpg",
+    ],
+    accentColor: "#4A6B49",
+  },
   {
     id: "lolo-et-lili",
     title: "Lolo & Lili",
@@ -123,6 +144,27 @@ export const BOOKS: Book[] = [
     coverImage: "/books/lolo-et-lili.jpg",
     interiorPreview: ["/books/lolo-et-lili-1.jpg", "/books/lolo-et-lili-2.jpg"],
     accentColor: "#2B7A78",
+  },
+  {
+    id: "vacances-clem",
+    title: "Les Vacances de Clem et ses Copines",
+    subtitle: "30 Coloriages d'été entre copines (Édition spéciale 6–12 ans)",
+    category: "classique",
+    badge: "Spécial 6–12 ans",
+    features: [
+      "30 Coloriages d'été",
+      "Trait facile & amusant",
+      "Crayons & Feutres",
+    ],
+    amazonUrl: "https://www.amazon.fr/dp/B0HG5VRQ2P",
+    coverImage: "/books/vacances-clem.jpg",
+    interiorPreview: [
+      "/books/vacances-clem-1.jpg",
+      "/books/vacances-clem-2.jpg",
+    ],
+    accentColor: "#E05A80",
+    classicCoverOnly: true,
+    excludeFromPortal: true,
   },
 ];
 
@@ -198,8 +240,20 @@ export const BOOK_EDITORIAL_META: Record<
       "Quatrième de Couverture Officielle — 30 Dessins Uniques & Faciles à Colorier",
     ],
   },
+  "maisons-enchantees": {
+    editionNumber: "ÉD. 06 — ÉVASION FÉERIQUE",
+    formatLabel: "Format Confort • Ados & Adultes",
+    paperSpec: "51 Coloriages uniques et détaillés • Par CaroTine",
+    creatorNote:
+      "Ce livre de coloriage contient 51 pages de maisons enchantées uniques et détaillées. Une véritable pause hors du temps pour apaiser l'esprit, réduire le stress de la journée et libérer votre créativité, un coup de crayon à la fois.",
+    palette: ["#4A6B49", "#957A37", "#D4A373", "#6A502B", "#E7E6E4"],
+    pageCaptions: [
+      "Extrait Intérieur Officiel — Maison-Champignon Féerique au Cœur des Bois",
+      "Quatrième de Couverture Officielle — 51 Pages de Maisons Enchantées par CaroTine",
+    ],
+  },
   "lolo-et-lili": {
-    editionNumber: "ÉD. 06 — ÉDITION SPÉCIALE OCÉAN",
+    editionNumber: "ÉD. 07 — ÉDITION SPÉCIALE OCÉAN",
     formatLabel: "Format Grand Confort (24 × 31 cm)",
     paperSpec: "30 Coloriages • Trait épais, facile et amusant",
     creatorNote:
@@ -208,6 +262,18 @@ export const BOOK_EDITORIAL_META: Record<
     pageCaptions: [
       "Extrait Intérieur Officiel — La Raie Manta Souriante & Bulles Marines",
       "Quatrième de Couverture Officielle — Les Aventures de Lolo & Lili par CaroTine",
+    ],
+  },
+  "vacances-clem": {
+    editionNumber: "ÉD. 08 — SPÉCIAL ÉTÉ 6–12 ANS",
+    formatLabel: "Format Grand Confort • 6–12 ans",
+    paperSpec: "30 Coloriages d'été • Par CaroTine",
+    creatorNote:
+      "Rejoins Clem et ses deux copines, Manon et Louise, pour des vacances au soleil rigolotes et girly ! Installe-toi, sors tes crayons et feutres et colorie l'été.",
+    palette: ["#E05A80", "#FCAF91", "#FAD199", "#9DD4E9", "#D8B6CF"],
+    pageCaptions: [
+      "Extrait Intérieur Officiel — Clem, Manon et Louise à la Plage",
+      "Quatrième de Couverture Officielle — 30 Coloriages d'Été entre Copines",
     ],
   },
 };

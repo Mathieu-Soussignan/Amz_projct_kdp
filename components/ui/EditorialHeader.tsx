@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Sparkles, BookOpen, ArrowUpRight, Heart } from "lucide-react";
+import { Sparkles, BookOpen, ArrowUpRight, Heart, Moon, Sun } from "lucide-react";
 import type { BookCategory } from "@/data/books";
 
 interface EditorialHeaderProps {
@@ -10,6 +10,8 @@ interface EditorialHeaderProps {
   onSeasonChange: (season: BookCategory) => void;
   onOpenFeaturedFlipbook: () => void;
   onReplayIntro?: () => void;
+  candlelightMode?: boolean;
+  onToggleCandlelight?: () => void;
 }
 
 export default function EditorialHeader({
@@ -17,6 +19,8 @@ export default function EditorialHeader({
   onSeasonChange,
   onOpenFeaturedFlipbook,
   onReplayIntro,
+  candlelightMode = false,
+  onToggleCandlelight,
 }: EditorialHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -96,13 +100,19 @@ export default function EditorialHeader({
             href="#catalogue"
             className="hover:text-espresso-900 transition-colors"
           >
-            01. La Collection
+            01. Collection
           </a>
           <a
             href="#atelier-interactif"
             className="hover:text-espresso-900 transition-colors"
           >
-            02. Essayer un Coloriage
+            02. Colorier
+          </a>
+          <a
+            href="#coffret-cadeau"
+            className="hover:text-espresso-900 transition-colors"
+          >
+            03. Coffret Cadeau
           </a>
           <button
             type="button"
@@ -110,18 +120,43 @@ export default function EditorialHeader({
             className="hover:text-espresso-900 transition-colors flex items-center gap-1.5 uppercase tracking-[0.16em]"
           >
             <BookOpen className="w-3.5 h-3.5 text-autumn-saffron" />
-            <span>03. Feuilleter</span>
+            <span>04. Feuilleter</span>
           </button>
           <a
             href="#duo-story"
             className="hover:text-espresso-900 transition-colors"
           >
-            04. L&apos;Univers CaroTine
+            05. CaroTine
           </a>
         </nav>
 
-        {/* Right: Quick Season Toggle + TikTok 530K Pill */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Right: Candlelight Toggle + Quick Season Toggle + TikTok 530K Pill */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {onToggleCandlelight && (
+            <button
+              type="button"
+              onClick={onToggleCandlelight}
+              title={
+                candlelightMode
+                  ? "Désactiver le mode Veillée à la Bougie"
+                  : "Activer le mode Veillée à la Bougie"
+              }
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all active:scale-95 border ${
+                candlelightMode
+                  ? "bg-amber-400 text-espresso-900 border-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.65)]"
+                  : "bg-[#EAD2B5]/85 hover:bg-[#EAD2B5] text-espresso-900 border-espresso-900/12"
+              }`}
+            >
+              {candlelightMode ? (
+                <Sun className="w-3.5 h-3.5" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-autumn-saffron" />
+              )}
+              <span className="hidden md:inline">
+                {candlelightMode ? "Jour" : "Veillée"}
+              </span>
+            </button>
+          )}
           {/* Compact Season Switcher Pill */}
           <div
             role="group"
