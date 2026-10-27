@@ -29,9 +29,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title:
-    "CaroTine — Collection Officielle de Livres de Coloriage (Amazon KDP)",
+    "CaroTine — Collection Officielle de Livres de Coloriage",
   description:
-    "Découvrez les 8 livres de coloriage créés par CaroTine (530K+ sur TikTok) : Automne Cozy, Petits Animaux, Noël des Capybaras, Axolotls, Dinosaures, Maisons Enchantées, Lolo & Lili et Les Vacances de Clem.",
+    "Découvrez les 9 livres de coloriage créés par CaroTine (530K+ sur TikTok) : L'Atelier du Père Noël, Automne Cozy, Petits Animaux, Noël des Capybaras, Axolotls, Dinosaures, Maisons Enchantées, Lolo & Lili et Les Vacances de Clem.",
   openGraph: {
     title: "CaroTine — Livres de Coloriage Officiels",
     description:

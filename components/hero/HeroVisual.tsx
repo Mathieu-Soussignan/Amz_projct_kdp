@@ -49,6 +49,18 @@ export default function HeroVisual({
   const editorial = BOOK_EDITORIAL_META[activeBook.id];
   const isNoel = activeSeason === "noel";
 
+  // Calculate days until Christmas for the Christmas Movie Countdown
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  let xmasDate = new Date(currentYear, 11, 25);
+  if (now > xmasDate) {
+    xmasDate = new Date(currentYear + 1, 11, 25);
+  }
+  const daysUntilChristmas = Math.max(
+    1,
+    Math.ceil((xmasDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+  );
+
   // Smooth Pointer / Gyroscope Spring Physics
   const stageRef = useRef<HTMLDivElement>(null);
   const pointerX = useMotionValue(0);
@@ -143,7 +155,7 @@ export default function HeroVisual({
               onClick={() => onSeasonChange("noel")}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
                 activeSeason === "noel"
-                  ? "bg-noel-pine text-white shadow-sm"
+                  ? "bg-gradient-to-r from-[#C62626] via-[#9E1B1B] to-[#1E4D3B] text-white shadow-[0_0_20px_rgba(198,38,38,0.5)] ring-2 ring-amber-300/60"
                   : "text-espresso-800 hover:bg-linen-200/70"
               }`}
             >
@@ -159,10 +171,64 @@ export default function HeroVisual({
                   : "text-espresso-800 hover:bg-linen-200/70"
               }`}
             >
-              🌊 Tout (7)
+              🌊 Tout (8)
             </button>
           </div>
         </div>
+
+        {/* CINEMATIC CHRISTMAS MOVIE BANNER WHEN NOËL IS ACTIVE */}
+        <AnimatePresence>
+          {isNoel && (
+            <motion.div
+              key="noel-cinema-banner"
+              initial={{ opacity: 0, y: -14, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.45 }}
+              className="mt-6 relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#7A1414] via-[#9E1C1C] to-[#1B4332] text-[#FFFDF9] p-4 sm:px-7 sm:py-4 border-2 border-amber-300/60 shadow-[0_20px_50px_-12px_rgba(158,28,28,0.45)] flex flex-col md:flex-row items-center justify-between gap-4"
+            >
+              {/* Golden Shimmering Film-Grain & Stars */}
+              <div
+                aria-hidden="true"
+                style={{
+                  background:
+                    "radial-gradient(circle at 20% 50%, rgba(255, 215, 102, 0.28) 0%, transparent 60%)",
+                }}
+                className="pointer-events-none absolute inset-0"
+              />
+
+              <div className="relative z-10 flex items-center gap-3.5 text-center sm:text-left">
+                <span className="hidden sm:flex w-11 h-11 rounded-2xl bg-amber-300/20 border border-amber-300/50 items-center justify-center text-2xl shrink-0 shadow-inner">
+                  🎅
+                </span>
+                <div>
+                  <div className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-amber-300 font-bold">
+                    <span>✨ Ambiance Grand Film de Noël Activée</span>
+                    <span>•</span>
+                    <span className="px-2 py-0.5 rounded-full bg-amber-300 text-espresso-900 font-extrabold">
+                      J-{daysUntilChristmas} avant Noël
+                    </span>
+                  </div>
+                  <p className="font-serif text-base sm:text-xl font-bold text-white mt-0.5">
+                    Bienvenue dans l&apos;Atelier du Père Noël : chocolats
+                    chauds, sapin illuminé &amp; 4 albums féeriques.
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative z-10 flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setSelectedIdx(0)}
+                  className="px-4 py-2.5 rounded-2xl bg-amber-300 hover:bg-amber-200 text-espresso-900 text-xs font-extrabold shadow-lg transition-all active:scale-95 flex items-center gap-1.5"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#9E1C1C]" />
+                  <span>Voir « L&apos;Atelier du Père Noël »</span>
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Main Editorial Asymmetric Grid */}
         <div className="mt-10 lg:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">

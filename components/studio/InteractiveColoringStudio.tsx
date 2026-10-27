@@ -236,7 +236,7 @@ export default function InteractiveColoringStudio() {
 
       ctx.fillStyle = "#8C583A";
       ctx.font = "20px sans-serif";
-      ctx.fillText("Collection Officielle Bold & Easy • Amazon KDP", 450, 968);
+      ctx.fillText("Collection Officielle Bold & Easy • Par CaroTine", 450, 968);
 
       URL.revokeObjectURL(url);
       const a = document.createElement("a");
@@ -925,7 +925,7 @@ export default function InteractiveColoringStudio() {
                   Couleur
                 </span>
                 <span className="pointer-events-none absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/90 text-espresso-900 text-[10px] font-bold border border-espresso-900/15">
-                  Trait Noir KDP
+                  Trait Noir Original
                 </span>
               </div>
 

@@ -11,7 +11,7 @@ export default function EditorialFooter() {
           {/* Brand Signature */}
           <div className="lg:col-span-5 space-y-4">
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-amber-300/80">
-              Collection Officielle • Amazon KDP
+              Collection Officielle • Créations Originales
             </span>
             <h3 className="font-serif text-3xl sm:text-4xl text-linen-50 tracking-tight inline-flex items-center">
               <span>CaroT</span>
@@ -22,16 +22,16 @@ export default function EditorialFooter() {
               <span>ne</span>
             </h3>
             <p className="text-xs sm:text-sm text-linen-200/70 max-w-md leading-relaxed">
-              Huit albums de coloriage imaginés par CaroTine pour offrir des
+              Neuf albums de coloriage imaginés par CaroTine pour offrir des
               moments de calme, de douceur et de créativité aux feutres ou aux
               crayons, expédiés directement par Amazon.
             </p>
           </div>
 
-          {/* Direct Links to All 8 Official Books on Amazon */}
+          {/* Direct Links to All 9 Official Books on Amazon */}
           <div className="lg:col-span-7">
             <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-linen-200/60 mb-4">
-              Accès Direct aux 8 Éditions sur Amazon
+              Accès Direct aux 9 Éditions sur Amazon
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {BOOKS.map((book) => (
@@ -58,11 +58,11 @@ export default function EditorialFooter() {
           </div>
         </div>
 
-        {/* Bottom Legal & KDP Notice */}
+        {/* Bottom Legal Notice */}
         <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[11px] text-linen-200/55">
           <p className="max-w-2xl leading-relaxed">
-            © {new Date().getFullYear()} CaroTine. Tous nos ouvrages sont
-            publiés et expédiés via Amazon Kindle Direct Publishing (KDP) avec
+            © {new Date().getFullYear()} CaroTine. Tous nos albums de coloriage
+            sont des créations originales disponibles sur Amazon avec
             éligibilité Amazon Prime.
           </p>
           <p className="flex items-center gap-1.5 text-linen-200/75">

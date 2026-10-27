@@ -75,7 +75,7 @@ export default function EditorialHeader({
                 <span>ne</span>
               </span>
               <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-espresso-800/70 mt-0.5 font-semibold">
-                Collection Officielle KDP
+                Collection Officielle
               </span>
             </div>
           </a>

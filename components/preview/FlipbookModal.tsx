@@ -126,13 +126,14 @@ export default function FlipbookModal({
     {
       src: `${book.interiorPreview[0]}?v=real`,
       label:
-        meta?.pageCaptions?.[0] ?? "Extrait Intérieur Officiel — Trait Noir KDP",
+        meta?.pageCaptions?.[0] ??
+        "Extrait Intérieur Officiel — Trait Noir Original",
       tag: "Zoom Illustration Intérieure",
     },
     {
       src: `${book.coverImage}?v=real`,
       label: `Couverture Officielle — ${book.title}`,
-      tag: "Couverture Officielle Amazon KDP",
+      tag: "Couverture Originale CaroTine",
     },
   ];
 
@@ -380,7 +381,7 @@ export default function FlipbookModal({
           <div className="lg:col-span-5 bg-linen-50 rounded-3xl p-6 sm:p-7 text-espresso-900 shadow-2xl space-y-5">
             <div>
               <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-espresso-800/60">
-                {meta?.editionNumber ?? "CARNET D'ART KDP"}
+                {meta?.editionNumber ?? "ÉDITION ORIGINALE CAROTINE"}
               </span>
               <h4 className="font-serif text-2xl sm:text-3xl font-bold text-espresso-900 mt-1">
                 {book.title}

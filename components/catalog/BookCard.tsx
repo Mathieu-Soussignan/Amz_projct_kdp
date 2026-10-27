@@ -249,7 +249,7 @@ export default function BookCard({
       {/* Bottom Textured Amazon CTA with Discreet Amazon Smile Logo & Prime Badge */}
       <div className="mt-6 pt-4 border-t border-espresso-900/10 relative z-10">
         <div className="flex items-center justify-between text-[11px] font-semibold text-espresso-800/70 mb-2.5">
-          <span>Édition Officielle KDP</span>
+          <span>Création Originale CaroTine</span>
           <span className="inline-flex items-center gap-1 text-espresso-900 font-bold">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
             Disponible en Prime

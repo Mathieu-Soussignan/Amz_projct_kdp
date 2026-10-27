@@ -225,7 +225,7 @@ export default function DuoStory() {
                         href="#catalogue"
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-espresso-900 text-linen-50 text-xs font-bold hover:bg-espresso-800 transition-colors"
                       >
-                        <span>Voir les 8 livres</span>
+                        <span>Voir les 9 livres</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </a>
                     </div>

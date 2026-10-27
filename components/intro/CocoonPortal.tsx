@@ -215,16 +215,19 @@ export default function CocoonPortal({ isOpen, onEnter }: CocoonPortalProps) {
         rest[4]!,
       ].filter(Boolean);
     }
-    if (priority.length === 3) {
-      // Noël (3 books): center slots 2, 3, 4
+    if (priority.length >= 3) {
+      // Noël (4 books): place the 4 Noël books right in the center (slots 1, 2, 3, 4) with L'Atelier du Père Noël in center slot 3
+      const santa =
+        priority.find((b) => b.id === "atelier-pere-noel") ?? priority[0]!;
+      const otherNoel = priority.filter((b) => b.id !== santa.id);
       return [
         rest[0]!,
+        otherNoel[0]!,
+        otherNoel[1]!,
+        santa,
+        otherNoel[2]!,
         rest[1]!,
-        priority[0]!,
-        priority[1]!,
-        priority[2]!,
         rest[2]!,
-        rest[3]!,
       ].filter(Boolean);
     }
     // Classique / Océan & Évasion (2 portal books: Lolo & Lili in center slot 3, Maisons Enchantées discreetly alongside)

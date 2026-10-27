@@ -261,7 +261,8 @@ export default function GiftBundleBuilder() {
             <div className="relative z-10 mt-4 pt-4 border-t border-white/10 space-y-2.5">
               <div className="flex items-center justify-between text-xs mb-2">
                 <span className="text-linen-200/80">
-                  Budget estimé ({selectedBooks.length} KDP) :
+                  Budget estimé ({selectedBooks.length}{" "}
+                  {selectedBooks.length > 1 ? "albums" : "album"}) :
                 </span>
                 <span className="font-serif text-lg font-bold text-amber-300">
                   ~{estimatedTotal} €{" "}

@@ -45,19 +45,29 @@ const MOOD_OPTIONS: MoodOption[] = [
     id: "noel",
     emoji: "🎅",
     label: "Préparer la magie & les cadeaux de Noël",
-    subtitle: "Ambiance sapin, guirlandes et chocolats chauds d'hiver",
-    recommendedIds: ["noel-capybaras", "noel-axolotls", "noel-dinosaures"],
+    subtitle: "Atelier du Père Noël, sapin illuminé & chocolats chauds",
+    recommendedIds: [
+      "atelier-pere-noel",
+      "noel-capybaras",
+      "noel-axolotls",
+      "noel-dinosaures",
+    ],
     reason:
-      "Le trio festif incontournable à glisser sous le sapin ou dans un calendrier de l'Avent : capybaras zen, axolotls féériques et dinosaures en pulls de Noël.",
+      "Plongez dans la féérie des grands films de Noël : les secrets de l'atelier du Père Noël (50 pages magiques), nos capybaras zen, axolotls féériques et dinosaures en pulls de Noël.",
   },
   {
     id: "famille",
     emoji: "🦊",
     label: "Colorier en famille avec les enfants",
     subtitle: "Grands aplats faciles dès 4 ans, sans dépasser",
-    recommendedIds: ["petits-animaux-automne", "noel-dinosaures", "lolo-et-lili"],
+    recommendedIds: [
+      "atelier-pere-noel",
+      "petits-animaux-automne",
+      "noel-dinosaures",
+      "lolo-et-lili",
+    ],
     reason:
-      "Conçus pour réunir petits et grands autour de la table du salon : des formes généreuses et expressives où personne ne se décourage.",
+      "Conçus pour réunir petits et grands autour de la table du salon : de l'atelier des lutins du Père Noël aux animaux de la forêt et de l'océan.",
   },
   {
     id: "kawaii",
@@ -362,14 +372,14 @@ export default function CommunityLoveWall({
             </span>
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-normal text-espresso-900 tracking-tight leading-[1.08]">
-            Court, honnête,{" "}
-            <span className="italic font-light text-espresso-800">
-              validé à la maison.
+            C&apos;est encore vous{" "}
+            <span className="italic font-light text-autumn-saffron">
+              qui en parlez le mieux !
             </span>
           </h2>
           <p className="mt-3 text-sm sm:text-base text-espresso-800/80">
-            Quelques petits mots laissés par celles et ceux qui colorient déjà
-            nos albums.
+            Testés, coloriés et adoptés pour vos soirées détente aux crayons et
+            aux feutres.
           </p>
         </div>
 

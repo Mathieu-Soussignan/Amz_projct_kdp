@@ -51,6 +51,26 @@ export const BOOKS: Book[] = [
 
   // --- COLLECTION NOËL (PRIORITAIRE) ---
   {
+    id: "atelier-pere-noel",
+    title: "Les Secrets de l'Atelier du Père Noël",
+    subtitle:
+      "50 Coloriages magiques pour enfants – Livre d'activités festif à glisser sous le sapin (dès 4 ans)",
+    category: "noel",
+    badge: "Nouveauté Noël ★ 50 Pages",
+    features: [
+      "50 Coloriages magiques",
+      "Lutins, Jouets & Père Noël",
+      "Idéal sous le sapin (dès 4 ans)",
+    ],
+    amazonUrl: "https://www.amazon.fr/dp/B0HPFW1Z7V",
+    coverImage: "/books/atelier-pere-noel.jpg",
+    interiorPreview: [
+      "/books/atelier-pere-noel-1.jpg",
+      "/books/atelier-pere-noel-2.jpg",
+    ],
+    accentColor: "#C62626",
+  },
+  {
     id: "noel-capybaras",
     title: "Noël Magique des Capybaras",
     subtitle: "30 Coloriages Bold & Easy – Le Noël mignon et relaxant",
@@ -202,6 +222,18 @@ export const BOOK_EDITORIAL_META: Record<
     pageCaptions: [
       "Extrait Intérieur Officiel — La Petite Chouette sous la Lune d'Automne",
       "Quatrième de Couverture Officielle — Bienvenue dans la Forêt d'Automne",
+    ],
+  },
+  "atelier-pere-noel": {
+    editionNumber: "ÉD. NOËL — L'ATELIER DU PÈRE NOËL",
+    formatLabel: "Format Grand Confort • Dès 4 ans",
+    paperSpec: "50 Coloriages magiques • Par CaroTine",
+    creatorNote:
+      "Entre dans la magie de Noël et découvre les secrets de l'atelier du Père Noël ! Lutins malicieux, trains en bois, rennes et sapins illuminés : 50 coloriages magiques à glisser sous le sapin.",
+    palette: ["#C62626", "#225131", "#F7DB9A", "#D6874C", "#F8F5F0"],
+    pageCaptions: [
+      "Univers Féerique — Le Petit Renne & le Village Enneigé de Noël",
+      "Quatrième de Couverture Officielle — 50 Coloriages Magiques dans l'Atelier du Père Noël",
     ],
   },
   "noel-capybaras": {
